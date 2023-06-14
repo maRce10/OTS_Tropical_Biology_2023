@@ -443,6 +443,9 @@ div.tocify {
   <a href="https://codefile.io/f/kkWCiv5Zp76wqhw1OM7m">In-class code sharing</a>
 </li>
 <li>
+  <a href="https://colab.research.google.com/drive/1oNG2l9tw0ta6u7gTTZ314S29wDqgiGW5?usp=sharing">Colab notebook</a>
+</li>
+<li>
   <a href="instructor.html">Instructor</a>
 </li>
       </ul>
@@ -478,6 +481,15 @@ pre.numberSource code
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
+<div id="objetives" class="section level3 alert alert-info">
+<h3>Objetives</h3>
+<p> </p>
+<ul>
+<li><p>Understand the logic used by ggplot2 to structure graphs</p></li>
+<li><p>Get familiar with its basic functions and types layer</p></li>
+</ul>
+</div>
+<p> </p>
 <p> </p>
 <div id="ggplot2" class="section level2 alert alert-warning">
 <h2>ggplot2</h2>
@@ -946,8 +958,8 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <pre><code>## Warning: The dot-dot notation (`..level..`) was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `after_stat(level)` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this
-## warning was generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <p><img src="graphs_with_ggplot2_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <div class="sourceCode" id="cb48"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">ggplot</span>(faithfuld, <span class="fu">aes</span>(eruptions, waiting)) <span class="sc">+</span> <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">fill =</span> density))</span></code></pre></div>
@@ -1005,35 +1017,28 @@ computing, 2nd edn. Springer, New York</li>
 ## [11] LC_MEASUREMENT=es_CR.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods  
-## [7] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] scales_1.2.1       MASS_7.3-58.2      RColorBrewer_1.1-3
-## [4] viridis_0.6.3      viridisLite_0.4.2  ggplot2_3.4.2     
-## [7] knitr_1.42         kableExtra_1.3.4  
+## [1] scales_1.2.1       viridis_0.6.3      viridisLite_0.4.2  MASS_7.3-58.2     
+## [5] RColorBrewer_1.1-3 ggplot2_3.4.2      knitr_1.42         kableExtra_1.3.4  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.2.0  xfun_0.39         bslib_0.4.2      
-##  [4] lattice_0.20-45   splines_4.2.2     colorspace_2.1-0 
-##  [7] vctrs_0.6.2       generics_0.1.3    htmltools_0.5.5  
-## [10] mgcv_1.8-41       yaml_2.3.7        utf8_1.2.3       
-## [13] rlang_1.1.1       isoband_0.2.7     jquerylib_0.1.4  
-## [16] pillar_1.9.0      glue_1.6.2        withr_2.5.0      
-## [19] lifecycle_1.0.3   stringr_1.5.0     munsell_0.5.0    
-## [22] gtable_0.3.3      ragg_1.2.4        rvest_1.0.3      
-## [25] evaluate_0.21     labeling_0.4.2    fastmap_1.1.1    
-## [28] fansi_1.0.4       highr_0.10        formatR_1.12     
-## [31] cachem_1.0.8      webshot_0.5.4     jsonlite_1.8.4   
-## [34] farver_2.1.1      systemfonts_1.0.4 textshaping_0.3.6
-## [37] gridExtra_2.3     digest_0.6.31     stringi_1.7.12   
-## [40] dplyr_1.1.0       grid_4.2.2        cli_3.6.1        
-## [43] tools_4.2.2       magrittr_2.0.3    sass_0.4.6       
-## [46] klippy_0.0.0.9500 tibble_3.2.1      crayon_1.5.2     
-## [49] pkgconfig_2.0.3   Matrix_1.5-1      rsconnect_0.8.29 
-## [52] xml2_1.3.4        assertthat_0.2.1  rmarkdown_2.21   
-## [55] svglite_2.1.0     httr_1.4.6        rstudioapi_0.14  
-## [58] R6_2.5.1          nlme_3.1-162      compiler_4.2.2</code></pre>
+##  [1] tidyselect_1.2.0  xfun_0.39         bslib_0.4.2       lattice_0.20-45  
+##  [5] splines_4.2.2     colorspace_2.1-0  vctrs_0.6.2       generics_0.1.3   
+##  [9] htmltools_0.5.5   mgcv_1.8-41       yaml_2.3.7        utf8_1.2.3       
+## [13] rlang_1.1.1       isoband_0.2.7     jquerylib_0.1.4   pillar_1.9.0     
+## [17] glue_1.6.2        withr_2.5.0       lifecycle_1.0.3   stringr_1.5.0    
+## [21] munsell_0.5.0     gtable_0.3.3      ragg_1.2.4        rvest_1.0.3      
+## [25] evaluate_0.21     labeling_0.4.2    fastmap_1.1.1     fansi_1.0.4      
+## [29] highr_0.10        formatR_1.12      cachem_1.0.8      webshot_0.5.4    
+## [33] jsonlite_1.8.4    farver_2.1.1      systemfonts_1.0.4 textshaping_0.3.6
+## [37] gridExtra_2.3     digest_0.6.31     stringi_1.7.12    dplyr_1.1.0      
+## [41] grid_4.2.2        cli_3.6.1         tools_4.2.2       magrittr_2.0.3   
+## [45] sass_0.4.6        klippy_0.0.0.9500 tibble_3.2.1      crayon_1.5.2     
+## [49] pkgconfig_2.0.3   Matrix_1.5-1      xml2_1.3.4        assertthat_0.2.1 
+## [53] rmarkdown_2.21    svglite_2.1.0     httr_1.4.6        rstudioapi_0.14  
+## [57] R6_2.5.1          nlme_3.1-162      compiler_4.2.2</code></pre>
 </div>
 
 

@@ -20,6 +20,8 @@ navbar:
       href: course_prep.html
     - text: "In-class code sharing"
       href: https://codefile.io/f/kkWCiv5Zp76wqhw1OM7m
+    - text: "Colab notebook"
+      href: https://colab.research.google.com/drive/1oNG2l9tw0ta6u7gTTZ314S29wDqgiGW5?usp=sharing
     - text: "Instructor"
       href: instructor.html
     

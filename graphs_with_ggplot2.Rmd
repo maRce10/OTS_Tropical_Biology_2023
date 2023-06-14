@@ -85,6 +85,20 @@ hylaeformis_data <- read.csv("./data/hylaeformis_data.csv", stringsAsFactors = F
 
 ```
 
+<div class="alert alert-info">
+
+### Objetives
+
+&nbsp;
+
+-   Understand the logic used by ggplot2 to structure graphs
+
+-   Get familiar with its basic functions and types layer
+
+</div>
+
+&nbsp;    
+
 &nbsp; 
 
 <div class="alert alert-warning">

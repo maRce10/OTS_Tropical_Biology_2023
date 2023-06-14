@@ -383,19 +383,204 @@ m <- data.frame(ID = c("a", "b", "c", "d", "e"), size = c(1, 2, 3, 4, 5, 6), obs
 
 1. Create a data frame with the two vectors creating in `1` and `2` as columns
 
-1. Make a list containing the matrix from `4` and the data frame from `5`
+1. Make a list containing the matrix from `3` and the data frame from `4`
 
 </div>
 
 &nbsp;
 
 
-
-
-
 ---
 
+&nbsp;
 
+## Functions
+
+All functions are created by the function `function()` and follow the same structure:
+
+<img src="images/function.png" alt="R" height="350" width="900">
+
+<font size="2">* Modified from <i>Grolemund 2014</i></font>
+&nbsp;
+
+
+R comes with many functions that you can use to do sophisticated tasks:
+
+```{r}
+# built in functions
+bi <- builtins()
+
+length(bi)
+
+sample(bi, 10)
+
+```
+&nbsp;
+
+Operators are functions:
+
+```{r}
+
+1 + 1
+
+
+'+'(1, 1)
+
+2 * 3
+
+
+'*'(2, 3)
+
+
+```
+&nbsp;
+ 
+
+<font size="5">Most commonly used R operators</font>  
+
+
+Arithmetic operators:
+
+```{r, echo=F}
+d <- data.frame(
+c("\\+" , "addition"),
+c("\\-", 	"subtraction"),
+c("\\*" ,	"multiplication"),
+c("/",	"division"),
+c("^ or **",	"exponent")
+)
+
+
+d <- t(d)
+
+colnames(d) <- c("Operator      ", "Description   ")
+
+knitr::kable(d, row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 18)
+
+```
+&nbsp;
+
+```{r}
+
+1 - 2
+
+1 + 2
+
+2 ^ 2
+
+```
+&nbsp;
+
+Logical operators:
+
+```{r, echo=F}
+d <- data.frame(
+c("<", "less than"),
+c("<=", "less than or equal to"),
+c(">", "greater than"),
+c(">=",	"greater than or equal to"),
+c("==", "exactly equal to"),
+c("!=",	"not equal to"),
+c("!x",	"Not x"),
+c("x | y", "	x OR y"),
+c("x & y", 	"x AND y"),
+c("x %in% y",	"match"))
+
+d <- t(d)
+
+colnames(d) <- c("Operator   ", "Description   ")
+
+knitr::kable(d, row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 18)
+
+```
+&nbsp;
+
+
+```{r}
+
+1 < 2 
+
+1 > 2 
+
+1 <= 2 
+
+1 == 2
+
+1 != 2
+
+1 > 2 
+
+5 %in% 1:6
+
+5 %in% 1:4
+```
+&nbsp; 
+
+Most functions are vectorized:
+
+```{r, eval=F}
+
+1:6 * 1:6
+
+```
+
+
+<img src="images/vectorize.png" alt="R" height="350" width="900">
+
+<font size="2">* Modified from <i>Grolemund & Wickham 2017</i></font>
+
+&nbsp; 
+
+```{r, echo=F}
+
+1:6 * 1:6
+```
+ 
+```{r}
+
+1:6 - 1:6
+```
+
+R recycles vectors of unequal length:
+
+```{r, eval=F}
+
+1:6 * 1:5
+
+```
+
+
+<img src="images/recycle.png" alt="R" height="350" width="900">
+
+<font size="2">* Modified from <i>Grolemund & Wickham 2017</i></font>
+
+&nbsp; 
+
+```{r, echo=F}
+
+1:6 * 1:5
+
+```
+
+
+
+```{r}
+
+1:6 + 1:5
+
+```
+&nbsp; 
+
+Logical operators are also vectorized:
+```{r}
+
+c("a", "b", "a") == "a"
+
+```
+
+---
 
 ## Data subsetting
 
@@ -544,192 +729,70 @@ View(df)
 </div>
 
 &nbsp;
-
----
-
-&nbsp;
-
-## Functions
-
-All functions are created by the function `function()` and follow the same structure:
-
-<img src="images/function.png" alt="R" height="350" width="900">
-
-<font size="2">* Modified from <i>Grolemund 2014</i></font>
-&nbsp;
-
-
-R comes with many functions that you can use to do sophisticated tasks:
-
-```{r}
-# built in functions
-bi <- builtins()
-
-length(bi)
-
-sample(bi, 10)
-
-```
-&nbsp;
-
-Operators are functions:
-
-```{r}
-
-1 + 1
-
-
-'+'(1, 1)
-
-2 * 3
-
-
-'*'(2, 3)
-
-
-```
-&nbsp;
  
-
-<font size="5">Most commonly used R operators</font>  
-
-
-Arithmetic operators:
-
-```{r, echo=F}
-d <- data.frame(
-c("\\+" , "addition"),
-c("\\-", 	"subtraction"),
-c("\\*" ,	"multiplication"),
-c("/",	"division"),
-c("^ or **",	"exponent"),
-c("x %% y",	"modulus (x mod y)"),
-c("x %/% y",	"integer division"))
-
-
-d <- t(d)
-
-colnames(d) <- c("Operator      ", "Description   ")
-
-knitr::kable(d, row.names = F, escape = FALSE) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 18)
-
-```
-&nbsp;
-
-```{r}
-
-1 - 2
-
-1 + 2
-
-2 ^ 2
-
-2 ** 2
-
-```
-&nbsp;
-
-Logical operators:
-
-```{r, echo=F}
-d <- data.frame(
-c("<", "less than"),
-c("<=", "less than or equal to"),
-c(">", "greater than"),
-c(">=",	"greater than or equal to"),
-c("==", "exactly equal to"),
-c("!=",	"not equal to"),
-c("!x",	"Not x"),
-c("x | y", "	x OR y"),
-c("x & y", 	"x AND y"),
-c("x %in% y",	"match"))
-
-d <- t(d)
-
-colnames(d) <- c("Operator   ", "Description   ")
-
-knitr::kable(d, row.names = F, escape = FALSE) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 18)
-
-```
-&nbsp;
-
-
-```{r}
-
-1 < 2 
-
-1 > 2 
-
-1 <= 2 
-
-1 == 2
-
-1 != 2
-
-1 > 2 
-
-5 %in% 1:6
-
-5 %in% 1:4
-```
-&nbsp; 
-
-Most functions are vectorized:
-
-```{r, eval=F}
-
-1:6 * 1:6
-
-```
-
-
-<img src="images/vectorize.png" alt="R" height="350" width="900">
-
-<font size="2">* Modified from <i>Grolemund & Wickham 2017</i></font>
-
-&nbsp; 
-
-```{r, echo=F}
-
-1:6 * 1:6
-```
  
-```{r}
-
-1:6 - 1:6
-```
-
-R recycles vectors of unequal length:
-
-```{r, eval=F}
-
-1:6 * 1:5
-
-```
+### Subsetting based on conditions
 
 
-<img src="images/recycle.png" alt="R" height="350" width="900">
-
-<font size="2">* Modified from <i>Grolemund & Wickham 2017</i></font>
-
-&nbsp; 
-
-```{r, echo=F}
-
-1:6 * 1:5
-
-```
-
-
+Logical vectors can be used to subset objects. We can use `TRUE` to choose those positions to be kept and `FALSE` for those positions to be excluded:
 
 ```{r}
 
-1:6 + 1:5
+v <- c(1, 2, 3, 4)
+
+
+v[c(FALSE, FALSE, TRUE, TRUE)]
+
+
+v[c(TRUE, FALSE, FALSE, TRUE)]
 
 ```
-&nbsp; 
+
+Notice that logical vectors can be obtained by evaluating a condition. For instance, which elements in `v` are higher than 2:
+
+```{r}
+
+v > 2
+
+```
+
+If so, conditional evaluations can then be used to generate logical vectors to be used for subsetting:
+
+
+```{r}
+
+v[v > 2]
+
+
+v[v < 3]
+
+```
+
+&nbsp;
+
+<div class="alert alert-info">
+
+<font size="5">Exercise</font> 
+
+&nbsp;
+
+1. Subset the observations in `iris` for which sepal length is lower than 5 and save it as a new data frame
+
+
+```{r, eval = FALSE, echo = FALSE}
+
+range(iris$Petal.Width) 
+
+```
+
+
+1. Subset the observations in `iris` for which petal width is equal or higher than 2 and save it as a new data frame
+
+1. Subset the observations in `iris` belonging to the species virginica
+
+</div>
+
+&nbsp;
 
 ---
 

@@ -271,6 +271,9 @@ $(document).ready(function () {
   <a href="https://codefile.io/f/kkWCiv5Zp76wqhw1OM7m">In-class code sharing</a>
 </li>
 <li>
+  <a href="https://colab.research.google.com/drive/1oNG2l9tw0ta6u7gTTZ314S29wDqgiGW5?usp=sharing">Colab notebook</a>
+</li>
+<li>
   <a href="instructor.html">Instructor</a>
 </li>
       </ul>
@@ -315,17 +318,17 @@ prints the output of the code you run from the source. You can write
 code in the console, but it will not be saved in a physical file. This
 layout allocates more screen space to the most useful panes. Hit “Apply”
 and “Ok”.</p></li>
-<li><p>Now in the R console in Rstudio: Run the following code to
-install the latest developmental versions (from github) of warbleR,
-Rraven, PhenotypeSpace, ohun, baRulho and dynaSpec (remove the packages
-first if you have them installed already).</p></li>
+<li><p>Now in the R console in Rstudio run the following code to install
+the packages that will be used during the workshop:</p></li>
 </ol>
-<pre class="r"><code>install.packages(&quot;ggplot2&quot;) 
-install.packages(&quot;lme4&quot;)
-install.packages(&quot;MASS&quot;)
-install.packages(&quot;viridis&quot;)
-install.packages(&quot;lmerTest&quot;)
-install.packages(&quot;sjPlot&quot;)</code></pre>
+<pre class="r"><code>install.packages(c(&quot;ggplot2&quot;,
+                 &quot;lme4&quot;,
+                 &quot;MASS&quot;,
+                 &quot;viridis&quot;,
+                 &quot;lmerTest&quot;,
+                 &quot;car&quot;,
+                 &quot;sjstats&quot;,
+                 &quot;sjPlot&quot;))</code></pre>
 <p> </p>
 <div class="alert alert-warning">
 <p><strong>A few tips to ensure you will take full advantage of the
@@ -340,15 +343,16 @@ external noises</li>
 class</li>
 <li>Be ready a few minutes before the start of the class</li>
 <li>Try to focus as much as possible on the course, close other programs
-or unnecessary internet browser tabs (i.e. facebook, twitter, etc). This
-will also make your computer more efficient (less likely to slow
+or unnecessary internet browser tabs (i.e. instagram, twitter, etc).
+This will also make your computer more efficient (less likely to slow
 down)</li>
 <li>Comment your code</li>
 </ul>
 </div>
 <p> </p>
-<p>Take a look at the <a href="">R basics tutorial</a> ahead of the
-workshop (if possible!)</p>
+<p>Take a look at the <a
+href="https://marce10.github.io/OTS_Tropical_Biology_2023/r_basics.html">R
+basics tutorial</a> ahead of the workshop (if possible!)</p>
 
 
 
