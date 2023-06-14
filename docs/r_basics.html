@@ -410,8 +410,8 @@ pre.numberSource code
 </ul>
 </div>
 <p> </p>
-<div id="what-is-r" class="section level2">
-<h2>What is R?</h2>
+<div id="what-is-r" class="section level1">
+<h1>What is R?</h1>
 <ul>
 <li>A <strong>free</strong> <a
 href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-Specific-Language
@@ -428,7 +428,6 @@ ago)</li>
 </ul>
 <p><img src="images/Rinterf.jpeg" alt="R" height="600" width="800"></p>
 <p> </p>
-</div>
 <div id="rstudio" class="section level2">
 <h2>Rstudio</h2>
 <p>Integrated development environment (IDE) for R. Includes:</p>
@@ -440,8 +439,9 @@ ago)</li>
 <p><img src="images/Rstudio.jpeg" alt="R" height="500" width="800"></p>
 <hr />
 </div>
-<div id="elements-of-the-r-language" class="section level2">
-<h2>Elements of the R language</h2>
+</div>
+<div id="elements-of-the-r-language" class="section level1">
+<h1>Elements of the R language</h1>
 <ul>
 <li>Vectors</li>
 <li>Lists</li>
@@ -452,16 +452,12 @@ ago)</li>
 </ul>
 <p><font size="5">Data structure</font></p>
 <p>The basic data structure in R is the vector. There are two basic
-types of vectors: atomic vectors and lists.</p>
-<p>They have three common properties:</p>
-<ul>
-<li>Type, <code>typeof()</code> (~ class/mode)</li>
-<li>Length, <code>length()</code> (number of elements)</li>
-<li>Attributes, <code>attributes()</code> (metadata)</li>
-</ul>
-<p>They differ in the types of their elements: all elements of an atomic
-vector must be the same type, whereas the elements of a list can have
-different types.</p>
+types of vectors: atomic vectors and lists. They differ in the types of
+their elements: all elements of an atomic vector must be the same type,
+whereas the elements of a list can have different types. When working
+with bi-dimensional data matrices are similar to atomic vectors in the
+sense that they can only contain elements from the same type. Data
+frames, similar to lists, can contain heterogeneous data types:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -513,7 +509,8 @@ Array
 <p> </p>
 <p>R has no 0-dimensional elements (scalars). Individual numbers or
 strings are actually vectors of length one.</p>
-<p><font size="5">Atomic vectors</font></p>
+<div id="atomic-vectors" class="section level2">
+<h2>Atomic vectors</h2>
 <p>Types of atomic vectors:</p>
 <ul>
 <li>Logical <a
@@ -560,66 +557,45 @@ v &lt;- c(10, 11, 12, 13, NA)
 class(v)
 ## [1] &quot;numeric&quot;
 
-v &lt;- c(letters[1:3], NA)
+v &lt;- c(1:3, NA)
 
 class(v)
-## [1] &quot;character&quot;</code></pre>
+## [1] &quot;integer&quot;</code></pre>
 <p> </p>
-<p><font size="5">Lists</font></p>
+</div>
+<div id="lists" class="section level2">
+<h2>Lists</h2>
 <p>Can contain objects of different classes and sizes. Lists are built
 using list():</p>
-<pre class="r numberLines lineAnchors"><code>l &lt;- list(ID = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;), size = c(1, 2, 3, 4, 5),
-    observed = c(FALSE, TRUE, FALSE, FALSE, FALSE))
+<pre class="r numberLines lineAnchors"><code>l &lt;- list(&quot;a&quot;, 1, FALSE)
 
 l</code></pre>
-<pre><code>## $ID
-## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;
+<pre><code>## [[1]]
+## [1] &quot;a&quot;
 ## 
-## $size
-## [1] 1 2 3 4 5
+## [[2]]
+## [1] 1
 ## 
-## $observed
-## [1] FALSE  TRUE FALSE FALSE FALSE</code></pre>
+## [[3]]
+## [1] FALSE</code></pre>
 <pre class="r numberLines lineAnchors"><code>class(l)</code></pre>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <pre class="r numberLines lineAnchors"><code>str(l)</code></pre>
 <pre><code>## List of 3
-##  $ ID      : chr [1:5] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
-##  $ size    : num [1:5] 1 2 3 4 5
-##  $ observed: logi [1:5] FALSE TRUE FALSE FALSE FALSE</code></pre>
+##  $ : chr &quot;a&quot;
+##  $ : num 1
+##  $ : logi FALSE</code></pre>
 <p>… and dimensions:</p>
-<pre class="r numberLines lineAnchors"><code>l &lt;- list(ID = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;), size = c(1, 2, 3, 4, 5,
-    6), observed = c(FALSE, TRUE, FALSE, FALSE, FALSE), l)
+<pre class="r numberLines lineAnchors"><code>l &lt;- list(c(&quot;a&quot;, &quot;b&quot;), c(1, 2, 3), c(FALSE, TRUE, FALSE, FALSE))
 
 str(l)</code></pre>
-<pre><code>## List of 4
-##  $ ID      : chr [1:5] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
-##  $ size    : num [1:6] 1 2 3 4 5 6
-##  $ observed: logi [1:5] FALSE TRUE FALSE FALSE FALSE
-##  $         :List of 3
-##   ..$ ID      : chr [1:5] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
-##   ..$ size    : num [1:5] 1 2 3 4 5
-##   ..$ observed: logi [1:5] FALSE TRUE FALSE FALSE FALSE</code></pre>
+<pre><code>## List of 3
+##  $ : chr [1:2] &quot;a&quot; &quot;b&quot;
+##  $ : num [1:3] 1 2 3
+##  $ : logi [1:4] FALSE TRUE FALSE FALSE</code></pre>
 <p> </p>
-<p><font size="5">Names</font></p>
-<p>Vectors can be named in three ways:</p>
-<ul>
-<li>When creating it: <code>x &lt;- c(a = 1, b = 2, c = 3)</code></li>
-<li>By modifying an existing vector in place: <code>x &lt;- 1:3</code>;
-<code>names(x) &lt;- c("a", "b", "c")</code> Or:
-<code>x &lt;- 1:3</code>; <code>names(x)[[1]] &lt;- c("a")</code></li>
-<li>By creating a modified copy of a vector:
-<code>x &lt;- setNames(1:3, c("a", "b", "c"))</code></li>
-</ul>
-<pre class="r numberLines lineAnchors"><code>y &lt;- c(a = 1, 2, 3)
-
-names(y)</code></pre>
-<pre><code>## [1] &quot;a&quot; &quot;&quot;  &quot;&quot;</code></pre>
-<pre class="r numberLines lineAnchors"><code>v &lt;- c(1, 2, 3)
-
-names(v) &lt;- c(&quot;a&quot;)</code></pre>
-<p> </p>
-<p><font size="5">Factors</font></p>
+<div id="factors" class="section level3">
+<h3>Factors</h3>
 <p>Attributes are used to define factors. A factor is a vector that can
 contain only predefined values, and is used to store categorical
 data.</p>
@@ -646,7 +622,10 @@ c(x)</code></pre>
 <pre><code>## [1] a b b a
 ## Levels: a b</code></pre>
 <p> </p>
-<p><font size="5">Matrices</font></p>
+</div>
+</div>
+<div id="matrices" class="section level2">
+<h2>Matrices</h2>
 <p>All entries are of the same type:</p>
 <pre class="r numberLines lineAnchors"><code>m &lt;- matrix(c(1, 2, 3, 11, 12, 13), nrow = 2)
 
@@ -684,7 +663,9 @@ c</code></pre>
 <pre><code>## $dim
 ## [1] 3 2</code></pre>
 <p> </p>
-<p><font size="5">Data frames</font></p>
+</div>
+<div id="data-frames" class="section level2">
+<h2>Data frames</h2>
 <p>Special case of lists. Can contain entries of different types:</p>
 <pre class="r numberLines lineAnchors"><code>m &lt;- data.frame(ID = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;), size = c(1, 2, 3,
     4, 5), observed = c(FALSE, TRUE, FALSE, FALSE, FALSE))
@@ -692,78 +673,12 @@ c</code></pre>
 dim(m)</code></pre>
 <pre><code>## [1] 5 3</code></pre>
 <pre class="r numberLines lineAnchors"><code>m</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-ID
-</th>
-<th style="text-align:center;">
-size
-</th>
-<th style="text-align:center;">
-observed
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-a
-</td>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-FALSE
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-b
-</td>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-TRUE
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-c
-</td>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-FALSE
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-d
-</td>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-FALSE
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-e
-</td>
-<td style="text-align:center;">
-5
-</td>
-<td style="text-align:center;">
-FALSE
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##   ID size observed
+## 1  a    1    FALSE
+## 2  b    2     TRUE
+## 3  c    3    FALSE
+## 4  d    4    FALSE
+## 5  e    5    FALSE</code></pre>
 <pre class="r numberLines lineAnchors"><code>class(m)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <pre class="r numberLines lineAnchors"><code>is.data.frame(m)</code></pre>
@@ -791,8 +706,9 @@ data frame from <code>4</code></p></li>
 <hr />
 <p> </p>
 </div>
-<div id="functions" class="section level2">
-<h2>Functions</h2>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
 <p>All functions are created by the function <code>function()</code> and
 follow the same structure:</p>
 <p><img src="images/function.png" alt="R" height="350" width="900"></p>
@@ -803,12 +719,12 @@ tasks:</p>
 bi &lt;- builtins()
 
 length(bi)</code></pre>
-<pre><code>## [1] 1377</code></pre>
+<pre><code>## [1] 1375</code></pre>
 <pre class="r numberLines lineAnchors"><code>sample(bi, 10)</code></pre>
-<pre><code>##  [1] &quot;importIntoEnv&quot;  &quot;switch&quot;         &quot;determinant&quot;   
-##  [4] &quot;qr.Q&quot;           &quot;print.by&quot;       &quot;pmax&quot;          
-##  [7] &quot;errorCondition&quot; &quot;stdin&quot;          &quot;Sys.chmod&quot;     
-## [10] &quot;.F_dqrrsd&quot;</code></pre>
+<pre><code>##  [1] &quot;serverSocket&quot;          &quot;as.symbol&quot;             &quot;dimnames&lt;-.data.frame&quot;
+##  [4] &quot;.maskedMsg&quot;            &quot;aperm&quot;                 &quot;close.connection&quot;     
+##  [7] &quot;print.Dlist&quot;           &quot;.packages&quot;             &quot;bitwNot&quot;              
+## [10] &quot;[[&lt;-.POSIXlt&quot;</code></pre>
 <p> </p>
 <p>Operators are functions:</p>
 <pre class="r numberLines lineAnchors"><code>1 + 1</code></pre>
@@ -820,7 +736,8 @@ length(bi)</code></pre>
 <pre class="r numberLines lineAnchors"><code>2 * 3</code></pre>
 <pre><code>## [1] 6</code></pre>
 <p> </p>
-<p><font size="5">Most commonly used R operators</font></p>
+<div id="most-commonly-used-r-operators" class="section level2">
+<h2>Most commonly used R operators</h2>
 <p>Arithmetic operators:</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1012,12 +929,12 @@ match
 <p><font size="2">* Modified from <i>Grolemund &amp; Wickham
 2017</i></font></p>
 <p> </p>
-<pre><code>## Warning in 1:6 * 1:5: longitud de objeto mayor no es múltiplo de la
-## longitud de uno menor</code></pre>
+<pre><code>## Warning in 1:6 * 1:5: longitud de objeto mayor no es múltiplo de la longitud de
+## uno menor</code></pre>
 <pre><code>## [1]  1  4  9 16 25  6</code></pre>
 <pre class="r numberLines lineAnchors"><code>1:6 + 1:5</code></pre>
-<pre><code>## Warning in 1:6 + 1:5: longitud de objeto mayor no es múltiplo de la
-## longitud de uno menor</code></pre>
+<pre><code>## Warning in 1:6 + 1:5: longitud de objeto mayor no es múltiplo de la longitud de
+## uno menor</code></pre>
 <pre><code>## [1]  2  4  6  8 10  7</code></pre>
 <p> </p>
 <p>Logical operators are also vectorized:</p>
@@ -1025,8 +942,9 @@ match
 <pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
 <hr />
 </div>
-<div id="data-subsetting" class="section level2">
-<h2>Data subsetting</h2>
+</div>
+<div id="data-subsetting" class="section level1">
+<h1>Data subsetting</h1>
 <p><font size="5">Indexing</font></p>
 <p>Elements within objects can be called by indexing. To subset a vector
 simply call the object position using square brackets:</p>
@@ -1070,240 +988,37 @@ m[1, ]</code></pre>
         &quot;philippii&quot;, &quot;ararauna&quot;))
 
 df</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-family
-</th>
-<th style="text-align:center;">
-genus
-</th>
-<th style="text-align:center;">
-species
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-Psittacidae
-</td>
-<td style="text-align:center;">
-Amazona
-</td>
-<td style="text-align:center;">
-aestiva
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Trochilidae
-</td>
-<td style="text-align:center;">
-Phaethornis
-</td>
-<td style="text-align:center;">
-philippii
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Psittacidae
-</td>
-<td style="text-align:center;">
-Ara
-</td>
-<td style="text-align:center;">
-ararauna
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##        family       genus   species
+## 1 Psittacidae     Amazona   aestiva
+## 2 Trochilidae Phaethornis philippii
+## 3 Psittacidae         Ara  ararauna</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[1, ]</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-family
-</th>
-<th style="text-align:center;">
-genus
-</th>
-<th style="text-align:center;">
-species
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-Psittacidae
-</td>
-<td style="text-align:center;">
-Amazona
-</td>
-<td style="text-align:center;">
-aestiva
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##        family   genus species
+## 1 Psittacidae Amazona aestiva</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[, 1]</code></pre>
 <pre><code>## [1] &quot;Psittacidae&quot; &quot;Trochilidae&quot; &quot;Psittacidae&quot;</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[1, 1]</code></pre>
 <pre><code>## [1] &quot;Psittacidae&quot;</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[-1, ]</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-family
-</th>
-<th style="text-align:center;">
-genus
-</th>
-<th style="text-align:center;">
-species
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-Trochilidae
-</td>
-<td style="text-align:center;">
-Phaethornis
-</td>
-<td style="text-align:center;">
-philippii
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Psittacidae
-</td>
-<td style="text-align:center;">
-Ara
-</td>
-<td style="text-align:center;">
-ararauna
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##        family       genus   species
+## 2 Trochilidae Phaethornis philippii
+## 3 Psittacidae         Ara  ararauna</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[, -1]</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-genus
-</th>
-<th style="text-align:center;">
-species
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-Amazona
-</td>
-<td style="text-align:center;">
-aestiva
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Phaethornis
-</td>
-<td style="text-align:center;">
-philippii
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Ara
-</td>
-<td style="text-align:center;">
-ararauna
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##         genus   species
+## 1     Amazona   aestiva
+## 2 Phaethornis philippii
+## 3         Ara  ararauna</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[-1, -1]</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-genus
-</th>
-<th style="text-align:center;">
-species
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-Phaethornis
-</td>
-<td style="text-align:center;">
-philippii
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Ara
-</td>
-<td style="text-align:center;">
-ararauna
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##         genus   species
+## 2 Phaethornis philippii
+## 3         Ara  ararauna</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[, &quot;family&quot;]</code></pre>
 <pre><code>## [1] &quot;Psittacidae&quot; &quot;Trochilidae&quot; &quot;Psittacidae&quot;</code></pre>
 <pre class="r numberLines lineAnchors"><code>df[, c(&quot;family&quot;, &quot;genus&quot;)]</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-family
-</th>
-<th style="text-align:center;">
-genus
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-Psittacidae
-</td>
-<td style="text-align:center;">
-Amazona
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Trochilidae
-</td>
-<td style="text-align:center;">
-Phaethornis
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Psittacidae
-</td>
-<td style="text-align:center;">
-Ara
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##        family       genus
+## 1 Psittacidae     Amazona
+## 2 Trochilidae Phaethornis
+## 3 Psittacidae         Ara</code></pre>
 <p> </p>
 <p>Lists require 1 index within double square brackets
 <code>[[index]]</code>:</p>
@@ -1337,263 +1052,27 @@ code:</p>
 <pre class="r numberLines lineAnchors"><code>ncol(df)</code></pre>
 <pre><code>## [1] 3</code></pre>
 <pre class="r numberLines lineAnchors"><code>head(iris)</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-Sepal.Length
-</th>
-<th style="text-align:center;">
-Sepal.Width
-</th>
-<th style="text-align:center;">
-Petal.Length
-</th>
-<th style="text-align:center;">
-Petal.Width
-</th>
-<th style="text-align:center;">
-Species
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-5.1
-</td>
-<td style="text-align:center;">
-3.5
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-<td style="text-align:center;">
-setosa
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.9
-</td>
-<td style="text-align:center;">
-3.0
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-<td style="text-align:center;">
-setosa
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.7
-</td>
-<td style="text-align:center;">
-3.2
-</td>
-<td style="text-align:center;">
-1.3
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-<td style="text-align:center;">
-setosa
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.6
-</td>
-<td style="text-align:center;">
-3.1
-</td>
-<td style="text-align:center;">
-1.5
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-<td style="text-align:center;">
-setosa
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5.0
-</td>
-<td style="text-align:center;">
-3.6
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-<td style="text-align:center;">
-setosa
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5.4
-</td>
-<td style="text-align:center;">
-3.9
-</td>
-<td style="text-align:center;">
-1.7
-</td>
-<td style="text-align:center;">
-0.4
-</td>
-<td style="text-align:center;">
-setosa
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <pre class="r numberLines lineAnchors"><code>tail(iris)</code></pre>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-Sepal.Length
-</th>
-<th style="text-align:center;">
-Sepal.Width
-</th>
-<th style="text-align:center;">
-Petal.Length
-</th>
-<th style="text-align:center;">
-Petal.Width
-</th>
-<th style="text-align:center;">
-Species
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-6.7
-</td>
-<td style="text-align:center;">
-3.3
-</td>
-<td style="text-align:center;">
-5.7
-</td>
-<td style="text-align:center;">
-2.5
-</td>
-<td style="text-align:center;">
-virginica
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-6.7
-</td>
-<td style="text-align:center;">
-3.0
-</td>
-<td style="text-align:center;">
-5.2
-</td>
-<td style="text-align:center;">
-2.3
-</td>
-<td style="text-align:center;">
-virginica
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-6.3
-</td>
-<td style="text-align:center;">
-2.5
-</td>
-<td style="text-align:center;">
-5.0
-</td>
-<td style="text-align:center;">
-1.9
-</td>
-<td style="text-align:center;">
-virginica
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-6.5
-</td>
-<td style="text-align:center;">
-3.0
-</td>
-<td style="text-align:center;">
-5.2
-</td>
-<td style="text-align:center;">
-2.0
-</td>
-<td style="text-align:center;">
-virginica
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-6.2
-</td>
-<td style="text-align:center;">
-3.4
-</td>
-<td style="text-align:center;">
-5.4
-</td>
-<td style="text-align:center;">
-2.3
-</td>
-<td style="text-align:center;">
-virginica
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5.9
-</td>
-<td style="text-align:center;">
-3.0
-</td>
-<td style="text-align:center;">
-5.1
-</td>
-<td style="text-align:center;">
-1.8
-</td>
-<td style="text-align:center;">
-virginica
-</td>
-</tr>
-</tbody>
-</table>
+<pre><code>##     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+## 145          6.7         3.3          5.7         2.5 virginica
+## 146          6.7         3.0          5.2         2.3 virginica
+## 147          6.3         2.5          5.0         1.9 virginica
+## 148          6.5         3.0          5.2         2.0 virginica
+## 149          6.2         3.4          5.4         2.3 virginica
+## 150          5.9         3.0          5.1         1.8 virginica</code></pre>
 <pre class="r numberLines lineAnchors"><code>View(df)</code></pre>
 <p> </p>
 <div class="alert alert-info">
 <p><font size="5">Exercise</font></p>
 <p> </p>
-<ul>
+<ol style="list-style-type: decimal">
 <li><p>Extract the first column from the example data
 <code>iris</code></p></li>
 <li><p>Extract the second row from the example data
@@ -1602,11 +1081,11 @@ virginica
 example data <code>iris</code></p></li>
 <li><p>How many columns and how many rows does <code>iris</code>
 has?</p></li>
-</ul>
+</ol>
 </div>
 <p> </p>
-<div id="subsetting-based-on-conditions" class="section level3">
-<h3>Subsetting based on conditions</h3>
+<div id="subsetting-based-on-conditions" class="section level2">
+<h2>Subsetting based on conditions</h2>
 <p>Logical vectors can be used to subset objects. We can use
 <code>TRUE</code> to choose those positions to be kept and
 <code>FALSE</code> for those positions to be excluded:</p>
@@ -1645,11 +1124,12 @@ species virginica</p></li>
 <hr />
 </div>
 </div>
-<div id="style-matters" class="section level2">
-<h2>Style matters</h2>
+<div id="style-matters" class="section level1">
+<h1>Style matters</h1>
 <p><font size="2"><a href="https://google.github.io/styleguide/Rguide.xml">Based
 on google’s R Style Guide</a></font></p>
-<p><font size="5">File names</font></p>
+<div id="file-names" class="section level2">
+<h2>File names</h2>
 <p>File names should end in .R and, of course, be meaningful:</p>
 <ul>
 <li>GOOD: predict_ad_revenue.R</li>
@@ -1669,7 +1149,9 @@ easy)</li>
   
   - BAD: dayOne, day1, firstDay_of.month, mean &lt;- function(x) sum(x), c &lt;- 10</code></pre>
 <p> </p>
-<p><font size="5">Syntax</font></p>
+</div>
+<div id="syntax" class="section level2">
+<h2>Syntax</h2>
 <p>Spacing:</p>
 <ul>
 <li>Use spaces around operators and for argument within a function</li>
@@ -1756,16 +1238,20 @@ outputs</li>
 <hr />
 <p> </p>
 </div>
-<div id="r-documentation" class="section level2">
-<h2>R documentation</h2>
+</div>
+<div id="r-documentation" class="section level1">
+<h1>R documentation</h1>
 <p>Most R resources are extremely well documented. So the first source
 for help you should go to when writting R code is the R documention
 itself. All packages are documented in the same standard way. Getting
 familiar with the format can simplify things a lot.</p>
-<p><font size="5">Package documentation</font></p>
+<div id="package-documentation" class="section level2">
+<h2>Package documentation</h2>
 <p><img src="images/packagepage.png" alt="R" height="900" width="800" style="border:3px solid gray"></p>
 <p> </p>
-<p><font size="5">Reference manuals</font></p>
+</div>
+<div id="reference-manuals" class="section level2">
+<h2>Reference manuals</h2>
 <p>Reference manuals are collections of the documentation for all
 functions in a package (only 1 per package):</p>
 <ul>
@@ -1777,7 +1263,9 @@ href="https://cran.r-project.org/web/packages/baRulho/baRulho.pdf">baRulho
 manual</a></p></li>
 </ul>
 <p> </p>
-<p><font size="5">Function documentation</font></p>
+</div>
+<div id="function-documentation" class="section level2">
+<h2>Function documentation</h2>
 <p>All functions (default or from loaded packages) must have a
 documentation that follows a standard format:</p>
 <pre class="r numberLines lineAnchors"><code>`?`(mean)
@@ -1790,16 +1278,13 @@ help(&quot;mean&quot;)</code></pre>
 <p> </p>
 <p>If you don’t recall the function name try <code>apropos()</code>:</p>
 <pre class="r numberLines lineAnchors"><code>apropos(&quot;mean&quot;)</code></pre>
-<pre><code>##  [1] &quot;.colMeans&quot;      &quot;.rowMeans&quot;      &quot;colMeans&quot;      
-##  [4] &quot;colMeans&quot;       &quot;cummean&quot;        &quot;difflsmeans&quot;   
-##  [7] &quot;kmeans&quot;         &quot;ls_means&quot;       &quot;lsmeansLT&quot;     
-## [10] &quot;mean&quot;           &quot;mean&quot;           &quot;mean_cl_boot&quot;  
-## [13] &quot;mean_cl_normal&quot; &quot;mean_sdl&quot;       &quot;mean_se&quot;       
-## [16] &quot;mean.Date&quot;      &quot;mean.default&quot;   &quot;mean.difftime&quot; 
-## [19] &quot;mean.POSIXct&quot;   &quot;mean.POSIXlt&quot;   &quot;rowMeans&quot;      
-## [22] &quot;rowMeans&quot;       &quot;weighted.mean&quot;</code></pre>
+<pre><code>##  [1] &quot;.colMeans&quot;     &quot;.rowMeans&quot;     &quot;colMeans&quot;      &quot;kmeans&quot;       
+##  [5] &quot;mean&quot;          &quot;mean.Date&quot;     &quot;mean.default&quot;  &quot;mean.difftime&quot;
+##  [9] &quot;mean.POSIXct&quot;  &quot;mean.POSIXlt&quot;  &quot;rowMeans&quot;      &quot;weighted.mean&quot;</code></pre>
 <p> </p>
-<p><font size="5">Vignettes</font></p>
+</div>
+<div id="vignettes" class="section level2">
+<h2>Vignettes</h2>
 <p>Vignettes are illustrative documents or study cases detailing the use
 of a package (optional, can be several per package).</p>
 <p>Vignettes can be called directly from R:</p>
@@ -1807,7 +1292,9 @@ of a package (optional, can be several per package).</p>
 <pre class="r numberLines lineAnchors"><code>vignette()</code></pre>
 <p>They should also be listed in the package CRAN page.</p>
 <p> </p>
-<p><font size="5">Demonstrations</font></p>
+</div>
+<div id="demonstrations" class="section level2">
+<h2>Demonstrations</h2>
 <p>Packages may also include extended code demonstrations (‘demos’). To
 list demos in a package run <code>demo("package name")</code>:</p>
 <pre class="r numberLines lineAnchors"><code>demo(package = &quot;stats&quot;)
@@ -1818,20 +1305,21 @@ demo(&quot;nlm&quot;)</code></pre>
 <div class="alert alert-info">
 <p><font size="5">Exercise</font></p>
 <p> </p>
-<ul>
+<ol style="list-style-type: decimal">
 <li><p>What does the function <code>cut()</code> do?</p></li>
 <li><p>What is the <code>breaks</code> argument in <code>cut()</code>
 used for?</p></li>
 <li><p>Run the first 4 lines of code in the examples supplied in the
 <code>cut()</code> documentation</p></li>
 <li><p>How many vignettes does the package warbleR has?</p></li>
-</ul>
+</ol>
 </div>
 <p> </p>
 <hr />
 </div>
-<div id="references" class="section level2">
-<h2>References</h2>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
 <ul>
 <li><a href="http://adv-r.had.co.nz/Data-structures.html">Advanced R, H
 Wickham</a></li>
@@ -1860,53 +1348,22 @@ Style Guide</a><br />
 ## [11] LC_MEASUREMENT=es_CR.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods  
-## [7] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] sjPlot_2.8.14      lmerTest_3.1-3     lme4_1.1-33       
-##  [4] Matrix_1.5-1       viridis_0.6.3      viridisLite_0.4.2 
-##  [7] dplyr_1.1.0        tidyr_1.3.0        readxl_1.4.1      
-## [10] kableExtra_1.3.4   knitr_1.42         ggplot2_3.4.2     
-## [13] RColorBrewer_1.1-3
+## [1] kableExtra_1.3.4 knitr_1.42      
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] minqa_1.2.5         colorspace_2.1-0    ellipsis_0.3.2     
-##   [4] rsconnect_0.8.29    sjlabelled_1.2.0    estimability_1.4.1 
-##   [7] fs_1.6.2            rstudioapi_0.14     farver_2.1.1       
-##  [10] remotes_2.4.2       fansi_1.0.4         mvtnorm_1.1-3      
-##  [13] xml2_1.3.4          splines_4.2.2       cachem_1.0.8       
-##  [16] sjmisc_2.8.9        pkgload_1.3.2       jsonlite_1.8.4     
-##  [19] nloptr_2.0.3        ggeffects_1.2.2     broom_1.0.4        
-##  [22] shiny_1.7.3         compiler_4.2.2      httr_1.4.6         
-##  [25] sjstats_0.18.2      emmeans_1.8.6       backports_1.4.1    
-##  [28] assertthat_0.2.1    fastmap_1.1.1       cli_3.6.1          
-##  [31] later_1.3.1         formatR_1.12        htmltools_0.5.5    
-##  [34] prettyunits_1.1.1   tools_4.2.2         coda_0.19-4        
-##  [37] gtable_0.3.3        glue_1.6.2          Rcpp_1.0.10        
-##  [40] carData_3.0-5       cellranger_1.1.0    jquerylib_0.1.4    
-##  [43] vctrs_0.6.2         svglite_2.1.0       nlme_3.1-162       
-##  [46] insight_0.19.2      xfun_0.39           stringr_1.5.0      
-##  [49] ps_1.7.5            rvest_1.0.3         mime_0.12          
-##  [52] miniUI_0.1.1.1      lifecycle_1.0.3     devtools_2.4.5     
-##  [55] klippy_0.0.0.9500   MASS_7.3-58.2       scales_1.2.1       
-##  [58] ragg_1.2.4          promises_1.2.0.1    yaml_2.3.7         
-##  [61] memoise_2.0.1       gridExtra_2.3       sass_0.4.6         
-##  [64] stringi_1.7.12      highr_0.10          bayestestR_0.13.1  
-##  [67] boot_1.3-28         pkgbuild_1.3.1      rlang_1.1.1        
-##  [70] pkgconfig_2.0.3     systemfonts_1.0.4   evaluate_0.21      
-##  [73] lattice_0.20-45     purrr_1.0.1         htmlwidgets_1.5.4  
-##  [76] labeling_0.4.2      tidyselect_1.2.0    processx_3.8.1     
-##  [79] magrittr_2.0.3      R6_2.5.1            generics_0.1.3     
-##  [82] profvis_0.3.7       pillar_1.9.0        withr_2.5.0        
-##  [85] mgcv_1.8-41         abind_1.4-5         tibble_3.2.1       
-##  [88] performance_0.10.3  modelr_0.1.11       crayon_1.5.2       
-##  [91] car_3.1-2           utf8_1.2.3          rmarkdown_2.21     
-##  [94] urlchecker_1.0.1    usethis_2.1.6       grid_4.2.2         
-##  [97] isoband_0.2.7       callr_3.7.3         digest_0.6.31      
-## [100] webshot_0.5.4       xtable_1.8-4        httpuv_1.6.6       
-## [103] numDeriv_2016.8-1.1 textshaping_0.3.6   munsell_0.5.0      
-## [106] bslib_0.4.2         sessioninfo_1.2.2</code></pre>
+##  [1] rstudioapi_0.14   xml2_1.3.4        magrittr_2.0.3    rvest_1.0.3      
+##  [5] munsell_0.5.0     viridisLite_0.4.2 colorspace_2.1-0  R6_2.5.1         
+##  [9] rlang_1.1.1       fastmap_1.1.1     stringr_1.5.0     httr_1.4.6       
+## [13] tools_4.2.2       webshot_0.5.4     xfun_0.39         cli_3.6.1        
+## [17] jquerylib_0.1.4   systemfonts_1.0.4 htmltools_0.5.5   assertthat_0.2.1 
+## [21] yaml_2.3.7        digest_0.6.31     lifecycle_1.0.3   klippy_0.0.0.9500
+## [25] formatR_1.12      vctrs_0.6.2       sass_0.4.6        glue_1.6.2       
+## [29] cachem_1.0.8      evaluate_0.21     rmarkdown_2.21    stringi_1.7.12   
+## [33] compiler_4.2.2    bslib_0.4.2       scales_1.2.1      svglite_2.1.0    
+## [37] jsonlite_1.8.4</code></pre>
 </div>
 
 

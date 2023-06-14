@@ -69,7 +69,7 @@ klippy::klippy(position = c('top', 'right'))
 &nbsp;    
 
 
-## What is R?
+# What is R?
  
 - A **free** [Domain-Specific-Language (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language) for statistics and data analysis
 - A collection of over 18949 (mar-9-2022) libraries
@@ -100,7 +100,7 @@ Integrated development environment (IDE) for R. Includes:
 
 ---
 
-## Elements of the R language
+# Elements of the R language
 
 - Vectors
 - Lists
@@ -113,15 +113,7 @@ Integrated development environment (IDE) for R. Includes:
 
 <font size="5">Data structure</font> 
 
-The basic data structure in R is the vector. There are two basic types of vectors: atomic vectors and lists. 
-
-They have three common properties:
-
-  - Type, `typeof()` (~ class/mode)
-  - Length, `length()` (number of elements)
-  - Attributes, `attributes()` (metadata)
-
-They differ in the types of their elements: all elements of an atomic vector must be the same type, whereas the elements of a list can have different types.
+The basic data structure in R is the vector. There are two basic types of vectors: atomic vectors and lists.  They differ in the types of their elements: all elements of an atomic vector must be the same type, whereas the elements of a list can have different types. When working with bi-dimensional data matrices are similar to atomic vectors in the sense that they can only contain elements from the same type. Data frames, similar to lists, can contain heterogeneous data types: 
 
 
 ```{r, echo=F}
@@ -147,7 +139,7 @@ R has no 0-dimensional elements (scalars). Individual numbers or strings are act
 
 
 
-<font size="5">Atomic vectors</font> 
+## Atomic vectors
 
 Types of atomic vectors:
 
@@ -203,7 +195,7 @@ v <- c(10, 11, 12, 13, NA)
 
 class(v)
 
-v <- c(letters[1:3], NA)
+v <- c(1:3, NA)
 
 class(v)
 
@@ -211,13 +203,13 @@ class(v)
 &nbsp;
 
 
-<font size="5">Lists</font>  
+## Lists
 
 Can contain objects of different classes and sizes. Lists are built using list():
 
 ```{r}
 
-l <- list(ID = c("a", "b", "c", "d", "e"), size = c(1, 2, 3, 4, 5), observed = c(FALSE, TRUE, FALSE, FALSE, FALSE))
+l <- list("a", 1, FALSE)
 
 l
 
@@ -231,34 +223,14 @@ str(l)
 
 ```{r}
 
-l <- list(ID = c("a", "b", "c", "d", "e"), size = c(1, 2, 3, 4, 5, 6), observed = c(FALSE, TRUE, FALSE, FALSE, FALSE), l)
+l <- list(c("a", "b"), c(1, 2, 3), c(FALSE, TRUE, FALSE, FALSE))
 
 str(l)
 
 ```
 &nbsp;
 
-<font size="5">Names</font>  
-
-Vectors can be named in three ways:
-
-  - When creating it: `x <- c(a = 1, b = 2, c = 3)`
-  - By modifying an existing vector in place: `x <- 1:3`; `names(x) <- c("a", "b", "c")` Or: `x <- 1:3`; `names(x)[[1]] <- c("a")`
-  - By creating a modified copy of a vector: `x <- setNames(1:3, c("a", "b", "c"))`
-
-```{r}
-y <- c(a = 1, 2, 3)
-
-names(y)
-
-v <- c(1, 2, 3)
-
-names(v) <- c('a')
-
-```
-&nbsp;
-
-<font size="5">Factors</font>  
+### Factors
 
 Attributes are used to define factors. A factor is a vector that can contain only predefined values, and is used to store categorical data. 
 
@@ -294,7 +266,7 @@ c(x)
 
 
 
-<font size="5">Matrices</font>  
+## Matrices  
 
 All entries are of the same type:
 
@@ -337,7 +309,7 @@ attributes(c)
 &nbsp;
 
 
-<font size="5">Data frames</font>  
+## Data frames
 
 Special case of lists. Can contain entries of different types:
 
@@ -390,7 +362,7 @@ m <- data.frame(ID = c("a", "b", "c", "d", "e"), size = c(1, 2, 3, 4, 5, 6), obs
 
 &nbsp;
 
-## Functions
+# Functions
 
 All functions are created by the function `function()` and follow the same structure:
 
@@ -432,7 +404,7 @@ Operators are functions:
 &nbsp;
  
 
-<font size="5">Most commonly used R operators</font>  
+## Most commonly used R operators  
 
 
 Arithmetic operators:
@@ -578,7 +550,7 @@ c("a", "b", "a") == "a"
 
 ---
 
-## Data subsetting
+# Data subsetting
 
 <font size="5">Indexing</font>  
 
@@ -714,20 +686,20 @@ View(df)
 
 &nbsp;
 
-- Extract the first column from the example data `iris`
+1. Extract the first column from the example data `iris`
 
-- Extract the second row from the example data `iris`
+1. Extract the second row from the example data `iris`
 
-- Extract the second column and second and third row from the example data `iris`
+1. Extract the second column and second and third row from the example data `iris`
 
-- How many columns and how many rows does `iris` has?
+1. How many columns and how many rows does `iris` has?
 
 </div>
 
 &nbsp;
  
  
-### Subsetting based on conditions
+## Subsetting based on conditions
 
 
 Logical vectors can be used to subset objects. We can use `TRUE` to choose those positions to be kept and `FALSE` for those positions to be excluded:
@@ -792,11 +764,11 @@ range(iris$Petal.Width)
 
 ---
 
-## Style matters 
+#  Style matters 
 <font size="2"><a href="https://google.github.io/styleguide/Rguide.xml">Based on google's R Style Guide</a></font>
 
 
-<font size="5">File names</font>  
+## File names
 
 File names should end in .R and, of course, be meaningful:
             
@@ -823,7 +795,7 @@ Variables and functions:
 ```
 &nbsp; 
 
-<font size="5">Syntax</font>  
+## Syntax
 
 
 Spacing:
@@ -931,17 +903,17 @@ General Layout and Ordering (google style):
 
 &nbsp;
 
-## R documentation
+# R documentation
 
 Most R resources are extremely well documented. So the first source for help you should go to when writting R code is the R documention itself. All packages are documented in the same standard way. Getting familiar with the format can simplify things a lot. 
 
-<font size="5">Package documentation</font>  
+## Package documentation
 
 <img src="images/packagepage.png" alt="R" height="900" width="800" style="border:3px solid gray">
 
 &nbsp;
 
-<font size="5">Reference manuals</font>  
+## Reference manuals
 
 Reference manuals are collections of the documentation for all functions in a package (only 1 per package): 
 
@@ -951,7 +923,7 @@ Reference manuals are collections of the documentation for all functions in a pa
 
 &nbsp;
 
-<font size="5">Function documentation</font>  
+## Function documentation
 
 All functions (default or from loaded packages) must have a documentation that follows a standard format:
 
@@ -978,7 +950,7 @@ apropos("mean")
 ```
 &nbsp;
 
-<font size="5">Vignettes</font>  
+## Vignettes   
 
 Vignettes are illustrative documents or study cases detailing the use of a package (optional, can be several per package).
 
@@ -996,7 +968,7 @@ They should also be listed in the package CRAN page.
 
 &nbsp;
 
-<font size="5">Demonstrations</font>  
+## Demonstrations  
 
 Packages may also include extended code demonstrations ('demos'). To list demos in a package run `demo("package name")`:
 
@@ -1016,13 +988,13 @@ demo("nlm")
 
 &nbsp;
 
-- What does the function `cut()` do?
+1. What does the function `cut()` do?
 
-- What is the `breaks` argument in `cut()` used for?
+1. What is the `breaks` argument in `cut()` used for?
 
-- Run the first 4 lines of code in the examples supplied in the `cut()` documentation
+1. Run the first 4 lines of code in the examples supplied in the `cut()` documentation
 
-- How many vignettes does the package warbleR has?
+1. How many vignettes does the package warbleR has?
 
 </div>
 
@@ -1030,7 +1002,7 @@ demo("nlm")
 
 ---
 
-## References
+# References
 
   - [Advanced R, H Wickham](http://adv-r.had.co.nz/Data-structures.html)
   - [Google's R Style Guide](https://google.github.io/styleguide/Rguide.xml)    
