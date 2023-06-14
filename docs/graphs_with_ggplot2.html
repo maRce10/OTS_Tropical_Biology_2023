@@ -11,7 +11,7 @@
 
 <meta name="author" content="Marcelo Araya-Salas, PhD" />
 
-<meta name="date" content="2023-06-13" />
+<meta name="date" content="2023-06-14" />
 
 <title>Elegant graphs with ggplot2</title>
 
@@ -466,7 +466,7 @@ ggplot2</b></font></h1>
 <br> Organization for Tropical Studies</font></h3>
 <h4 class="author"><font size="3"><a href="https://marce10.github.io/">Marcelo
 Araya-Salas, PhD</a></font></h4>
-<h4 class="date">2023-06-13</h4>
+<h4 class="date">2023-06-14</h4>
 
 </div>
 
@@ -489,7 +489,6 @@ pre.numberSource code
 <li><p>Get familiar with its basic functions and types layer</p></li>
 </ul>
 </div>
-<p> </p>
 <p> </p>
 <div id="ggplot2" class="section level2 alert alert-warning">
 <h2>ggplot2</h2>
@@ -593,16 +592,19 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p></br></p>
 <div class="alert alert-info">
 <p><font size="5">Exercise 1</font></p>
-<p>Using the “hylaeformis” data set:</p>
+<p>Using the “hylaeformis” data set (<a
+href="https://raw.githubusercontent.com/maRce10/OTS_Tropical_Biology_2023/master/data/hylaeformis_data.csv">it
+can also be downloaded here</a>):</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># read from website</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>hylaeformis_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/maRce10/OTS_TB_2022/master/data/hylaeformis_data.csv&quot;</span>,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>hylaeformis_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/maRce10/OTS_Tropical_Biology_2023/master/data/hylaeformis_data.csv&quot;</span>,</span>
 <span id="cb7-3"><a href="#cb7-3"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb7-4"><a href="#cb7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># or download manually and read from local file</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>hylaeformis_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;hylaeformis_data.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-7"><a href="#cb7-7"></a></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="fu">head</span>(hylaeformis_data, <span class="dv">20</span>)</span></code></pre></div>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># if download manually read it from the local file</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># hylaeformis_data &lt;- read.csv(&#39;hylaeformis_data.csv&#39;,</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co"># stringsAsFactors = FALSE)</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="fu">head</span>(hylaeformis_data, <span class="dv">20</span>)</span></code></pre></div>
 <p></br></p>
 <p>1.1 Create a scatter plot of “duration” vs “meanfreq” (mean
 frequency)</p>

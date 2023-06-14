@@ -235,10 +235,6 @@ l <- list(ID = c("a", "b", "c", "d", "e"), size = c(1, 2, 3, 4, 5, 6), observed 
 
 str(l)
 
-l2 <- list(l, l)
-
-str(l2)
-
 ```
 &nbsp;
 
@@ -699,9 +695,9 @@ nrow(df)
 
 ncol(df)
 
-head(df)
+head(iris)
 
-tail(df)
+tail(iris)
 
 ```
 

@@ -99,8 +99,6 @@ hylaeformis_data <- read.csv("./data/hylaeformis_data.csv", stringsAsFactors = F
 
 &nbsp;    
 
-&nbsp; 
-
 <div class="alert alert-warning">
 
 ## ggplot2
@@ -224,15 +222,15 @@ Some attributes work better with some data types:
 
 <font size="5">Exercise 1</font> 
 
-Using the "hylaeformis" data set:
+Using the "hylaeformis" data set ([it can also be downloaded here](https://raw.githubusercontent.com/maRce10/OTS_Tropical_Biology_2023/master/data/hylaeformis_data.csv)):
 
 ```{r,  eval=F, echo=T}
 
 #read from website
-hylaeformis_data <- read.csv("https://raw.githubusercontent.com/maRce10/OTS_TB_2022/master/data/hylaeformis_data.csv", stringsAsFactors = FALSE)
+hylaeformis_data <- read.csv("https://raw.githubusercontent.com/maRce10/OTS_Tropical_Biology_2023/master/data/hylaeformis_data.csv", stringsAsFactors = FALSE)
 
-# or  download manually and read from local file
-hylaeformis_data <- read.csv("hylaeformis_data.csv", stringsAsFactors = FALSE)
+# if download manually read it from the local file
+# hylaeformis_data <- read.csv("hylaeformis_data.csv", stringsAsFactors = FALSE)
 
 head(hylaeformis_data, 20)
 
@@ -904,7 +902,6 @@ T, Maechler M, Magnusson A, Moeller S, Schwartz M, Venables B (2015) gplots: var
 - Wickham H (2010) A layered grammar of graphics. J Comput Graph Stat 19(1):3–28
 - Wilkinson L (2005) The grammar of graphics. Statistics and computing, 2nd edn. Springer, New York
 
----
 
 ---
 

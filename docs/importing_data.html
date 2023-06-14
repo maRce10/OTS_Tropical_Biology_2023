@@ -1,0 +1,3991 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Marcelo Araya-Salas, PhD" />
+
+<meta name="date" content="2023-06-14" />
+
+<title>Importing and formatting data</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="extra.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Stats Workshop OTS-Tropical biology 2023</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r_basics.html">R basics</a>
+    </li>
+    <li>
+      <a href="linear_regression_models.html">Linear regression models</a>
+    </li>
+    <li>
+      <a href="common_stats_as_lms.html">Common stats as linear models</a>
+    </li>
+    <li>
+      <a href="graphs_with_ggplot2.html">Graphs with ggplot2</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="course_prep.html">Course prep</a>
+</li>
+<li>
+  <a href="https://codefile.io/f/kkWCiv5Zp76wqhw1OM7m">In-class code sharing</a>
+</li>
+<li>
+  <a href="https://colab.research.google.com/drive/1oNG2l9tw0ta6u7gTTZ314S29wDqgiGW5?usp=sharing">Colab notebook</a>
+</li>
+<li>
+  <a href="instructor.html">Instructor</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><font size="7"><b>Importing and formatting
+data</b></font></h1>
+<h3 class="subtitle"><font size="4"><b>OTS Tropical Biology 2023</b><br>
+Organization for Tropical Studies</font></h3>
+<h4 class="author"><font size="3"><a href="https://marce10.github.io/">Marcelo
+Araya-Salas, PhD</a></font></h4>
+<h4 class="date">2023-06-14</h4>
+
+</div>
+
+
+<div id="objetives" class="section level3 alert alert-info">
+<h3>Objetives</h3>
+<p> </p>
+<ul>
+<li><p>Understand the logic used by ggplot2 to structure graphs</p></li>
+<li><p>Get familiar with its basic functions and types layer</p></li>
+</ul>
+</div>
+<p> </p>
+<div id="before-importing-data"
+class="section level1 alert alert-warning">
+<h1>Before importing data</h1>
+<p>There are a few habits for data entry that will make it easier to
+import data correctly into <code>R</code>:</p>
+<ul>
+<li><p>Reserve the first row for the header</p></li>
+<li><p>Reserve the first column to the sampling unit</p></li>
+<li><p>Use “_“,”.” or “-” instead of empty spaces
+(e.g. “Cornell_University”)</p></li>
+<li><p>Use short names</p></li>
+<li><p>Avoid using uncommon symbols such as ?, $,%, ^, &amp;, *, (,
+),-,#, ?,,,&lt;,&gt;, /, |, , [ ,] ,{, and }</p></li>
+<li><p>Be consistent when referring to the same things (i.e. write them
+always in the same way)</p></li>
+<li><p>Delete any extra comments outside the data set columns</p></li>
+<li><p>Indicate missing values with NA (or at least empty
+spaces)</p></li>
+<li><p>Don’t even think about color-coding your data in excel</p></li>
+</ul>
+</div>
+<p> </p>
+<div id="importing-data" class="section level1">
+<h1>Importing data</h1>
+<p>Importing data into <code>R</code> is a crucial and apparently simple
+step. However, given the diversity of data formats and operating
+systems, as well as the many possible sources of error, inputting data
+in <code>R</code> is not always that straightforward. Most issues are
+related with:</p>
+<ul>
+<li><p>Telling <code>R</code> in which directory the file is
+found</p></li>
+<li><p>Telling <code>R</code> how the data is encoded
+(e.g. comma-separated, fixed width, etc)</p></li>
+<li><p>Handling empty cells and uncommon characters</p></li>
+</ul>
+<p> </p>
+<div id="setting-the-working-directory" class="section level2">
+<h2>Setting the working directory</h2>
+<p>To read data in R you need to specify the working directory. It can
+be set with the function <code>setwd()</code>. The way you do this
+depends on the operating system (windows, mac, Linux). The folder
+directory syntax follows the nested structure of the folders. For
+instance:</p>
+<pre class="r"><code>setwd(&quot;/home/m/Desktop/&quot;)</code></pre>
+<p>… sets the working directory in the folder “Desktop”, which is found
+within “m”, which is found within “home”.</p>
+<p> </p>
+<p>Some basic tips for setting the working directory:</p>
+<ul>
+<li><p>Make sure the location is quoted</p></li>
+<li><p>Make sure you have forward-slash (/) between folder names
+(although double backward-slashes seem to work in windows)</p></li>
+<li><p>Do not include any file name in the folder directory
+name</p></li>
+<li><p>To find the location you can look at the properties of a file in
+that folder and copy it</p></li>
+<li><p>The path to the folder should be quoted (““)</p></li>
+<li><p>The name matches exactly (better to copy/paste)</p></li>
+<li><p>Use <code>list.files()</code> to check which files are in the
+working directory</p></li>
+<li><p><code>R</code> can suggest and auto-complete the folder names by
+pressing “tab” when within quotes:</p></li>
+</ul>
+<p> </p>
+<p><img src="suggest_folder.gif" alt="Color spectro" height="150" width="550"></p>
+<p> </p>
+<p><font size="5">Setting the working directory in windows</font></p>
+<p>In windows it should be something like this:</p>
+<pre class="r"><code>setwd(&quot;C:/location&quot;)</code></pre>
+<p>You can also do this (only on windows!):</p>
+<pre class="r"><code>setwd(choose.dir())</code></pre>
+<p>  That should pop-up a window where you can choose the location.
+However, this should only be used to figure out the correct way to write
+the directory location, not as part of the script itself.</p>
+<p> </p>
+<p><font size="5">Setting the working directory in OSX (mac)</font></p>
+<p>For mac setting the working directory should be something like
+this:</p>
+<pre class="r"><code>setwd(&quot;/Users/yourname/..&quot;)</code></pre>
+<p>do not include whatever you have before “users” (like macintosh…
+)</p>
+<p> </p>
+<p><font size="5">Setting the working directory in Linux</font></p>
+<p>Similar to the code used in OSX:</p>
+<pre class="r"><code>setwd(&quot;/home/m/Desktop/&quot;)</code></pre>
+<p> </p>
+<p>The “~” (tilde) can also be used to skip the “home” and “user” folder
+in Linux:</p>
+<pre class="r"><code>setwd(&quot;~/Desktop/&quot;)</code></pre>
+<p> </p>
+<p>The current working directory can be checked as follows:</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/home/m/Dropbox/courses_and_workshops/OTS_TB_2023&quot;</code></pre>
+<p> </p>
+</div>
+<div id="reading-data" class="section level2">
+<h2>Reading data</h2>
+<p>Any file can be read in <code>R</code>. It’s just a matter of letting
+<code>R</code> know in which format is the file encoded (e.g. what
+conventions were followed when generating the file). The most common
+formats to store/exchange data sets as the ones we usually handle in
+biological sciences are <em>txt</em>, <em>csv</em> and
+<em>xls/xlsx</em>.</p>
+<p> </p>
+<p>The most commonly used function to import data in <code>R</code> is
+<code>read.table</code>. The documentation of this function actually
+includes all the default functions for inputting data:</p>
+<pre class="r"><code>?read.table</code></pre>
+<p> </p>
+<p><img src="input_data.png" alt="Color spectro" height="500" width="750"></p>
+<p> </p>
+<p><font size="5">Reading <i>.txt</i> files</font></p>
+<p><em>.txt</em> files can be read using <code>read.table</code>. Let’s
+first download a freely available data set in <em>.txt</em> format:</p>
+<pre class="r"><code># set working directory
+setwd(&quot;PUT THE FOLDER LOCATION WHERE YOU WANT TO SAVE THE FILE HERE&quot;)
+
+download.file(&quot;http://esapubs.org/archive/ecol/E090/184/PanTHERIA_1-0_WR93_Aug2008.txt&quot;, destfile = &quot;pantheria_mammals_data.txt&quot;)</code></pre>
+<p><em>You can also manually download the file from <a
+href="http://esapubs.org/archive/ecol/E090/184/PanTHERIA_1-0_WR93_Aug2008.txt">here</a></em></p>
+<p> </p>
+<p>The file can be input into <code>R</code> as follows:</p>
+<pre class="r"><code># read file
+pntr_dt &lt;- read.table(&quot;pantheria_mammals_data.txt&quot;, stringsAsFactors = FALSE, sep = &quot;\t&quot;, header = TRUE)</code></pre>
+<pre class="r"><code># check structure
+head(pntr_dt)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+MSW93_Order
+</th>
+<th style="text-align:left;">
+MSW93_Family
+</th>
+<th style="text-align:left;">
+MSW93_Genus
+</th>
+<th style="text-align:left;">
+MSW93_Species
+</th>
+<th style="text-align:left;">
+MSW93_Binomial
+</th>
+<th style="text-align:right;">
+X1.1_ActivityCycle
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Muridae
+</td>
+<td style="text-align:left;">
+Abditomys
+</td>
+<td style="text-align:left;">
+latidens
+</td>
+<td style="text-align:left;">
+Abditomys latidens
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Muridae
+</td>
+<td style="text-align:left;">
+Abrawayaomys
+</td>
+<td style="text-align:left;">
+ruschii
+</td>
+<td style="text-align:left;">
+Abrawayaomys ruschii
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Abrocomidae
+</td>
+<td style="text-align:left;">
+Abrocoma
+</td>
+<td style="text-align:left;">
+bennettii
+</td>
+<td style="text-align:left;">
+Abrocoma bennettii
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Abrocomidae
+</td>
+<td style="text-align:left;">
+Abrocoma
+</td>
+<td style="text-align:left;">
+boliviensis
+</td>
+<td style="text-align:left;">
+Abrocoma boliviensis
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Abrocomidae
+</td>
+<td style="text-align:left;">
+Abrocoma
+</td>
+<td style="text-align:left;">
+cinerea
+</td>
+<td style="text-align:left;">
+Abrocoma cinerea
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chiroptera
+</td>
+<td style="text-align:left;">
+Pteropodidae
+</td>
+<td style="text-align:left;">
+Acerodon
+</td>
+<td style="text-align:left;">
+celebensis
+</td>
+<td style="text-align:left;">
+Acerodon celebensis
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+X5.1_AdultBodyMass_g
+</th>
+<th style="text-align:right;">
+X8.1_AdultForearmLen_mm
+</th>
+<th style="text-align:right;">
+X13.1_AdultHeadBodyLen_mm
+</th>
+<th style="text-align:right;">
+X2.1_AgeatEyeOpening_d
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+268
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+223.99
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+251
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+194
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999.00
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+382
+</td>
+<td style="text-align:right;">
+133.49
+</td>
+<td style="text-align:right;">
+201.55
+</td>
+<td style="text-align:right;">
+-999
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>The file name is quoted and contains the file extension.</p>
+<p> </p>
+<p>Note that the value -999 is used to define empty cells. We can read
+this values as <em>NAs</em> while importing the data using the
+‘na.strings’ argument:</p>
+<pre class="r"><code># read file
+pntr_dt &lt;- read.table(&quot;pantheria_mammals_data.txt&quot;, sep = &quot;\t&quot;, header = TRUE, na.strings = &quot;-999&quot;)
+
+# check structure
+head(pntr_dt)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+MSW93_Order
+</th>
+<th style="text-align:left;">
+MSW93_Family
+</th>
+<th style="text-align:left;">
+MSW93_Genus
+</th>
+<th style="text-align:left;">
+MSW93_Species
+</th>
+<th style="text-align:left;">
+MSW93_Binomial
+</th>
+<th style="text-align:right;">
+X1.1_ActivityCycle
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Muridae
+</td>
+<td style="text-align:left;">
+Abditomys
+</td>
+<td style="text-align:left;">
+latidens
+</td>
+<td style="text-align:left;">
+Abditomys latidens
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Muridae
+</td>
+<td style="text-align:left;">
+Abrawayaomys
+</td>
+<td style="text-align:left;">
+ruschii
+</td>
+<td style="text-align:left;">
+Abrawayaomys ruschii
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Abrocomidae
+</td>
+<td style="text-align:left;">
+Abrocoma
+</td>
+<td style="text-align:left;">
+bennettii
+</td>
+<td style="text-align:left;">
+Abrocoma bennettii
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Abrocomidae
+</td>
+<td style="text-align:left;">
+Abrocoma
+</td>
+<td style="text-align:left;">
+boliviensis
+</td>
+<td style="text-align:left;">
+Abrocoma boliviensis
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rodentia
+</td>
+<td style="text-align:left;">
+Abrocomidae
+</td>
+<td style="text-align:left;">
+Abrocoma
+</td>
+<td style="text-align:left;">
+cinerea
+</td>
+<td style="text-align:left;">
+Abrocoma cinerea
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chiroptera
+</td>
+<td style="text-align:left;">
+Pteropodidae
+</td>
+<td style="text-align:left;">
+Acerodon
+</td>
+<td style="text-align:left;">
+celebensis
+</td>
+<td style="text-align:left;">
+Acerodon celebensis
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+X5.1_AdultBodyMass_g
+</th>
+<th style="text-align:right;">
+X8.1_AdultForearmLen_mm
+</th>
+<th style="text-align:right;">
+X13.1_AdultHeadBodyLen_mm
+</th>
+<th style="text-align:right;">
+X2.1_AgeatEyeOpening_d
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+268
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+223.99
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+251
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+194
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+382
+</td>
+<td style="text-align:right;">
+133.49
+</td>
+<td style="text-align:right;">
+201.55
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p><font size="5">Reading <i>.csv</i> files</font></p>
+<p>Again, we can download an example file online:</p>
+<pre class="r"><code>download.file(&quot;http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2013/03/eBird_Taxonomy_v2017_18Aug2017.csv&quot;, destfile = &quot;clements_bird_list.csv&quot;)
+
+clm_lst &lt;- read.csv(&quot;clements_bird_list.csv&quot;, stringsAsFactors = FALSE)
+
+head(clm_lst)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+TAXON_ORDER
+</th>
+<th style="text-align:left;">
+CATEGORY
+</th>
+<th style="text-align:left;">
+SPECIES_CODE
+</th>
+<th style="text-align:left;">
+PRIMARY_COM_NAME
+</th>
+<th style="text-align:left;">
+SCI_NAME
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+ostric2
+</td>
+<td style="text-align:left;">
+Common Ostrich
+</td>
+<td style="text-align:left;">
+Struthio camelus
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+ostric3
+</td>
+<td style="text-align:left;">
+Somali Ostrich
+</td>
+<td style="text-align:left;">
+Struthio molybdophanes
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+slash
+</td>
+<td style="text-align:left;">
+y00934
+</td>
+<td style="text-align:left;">
+Common/Somali Ostrich
+</td>
+<td style="text-align:left;">
+Struthio camelus/molybdophanes
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+grerhe1
+</td>
+<td style="text-align:left;">
+Greater Rhea
+</td>
+<td style="text-align:left;">
+Rhea americana
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+lesrhe2
+</td>
+<td style="text-align:left;">
+Lesser Rhea
+</td>
+<td style="text-align:left;">
+Rhea pennata
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+issf
+</td>
+<td style="text-align:left;">
+lesrhe4
+</td>
+<td style="text-align:left;">
+Lesser Rhea (Puna)
+</td>
+<td style="text-align:left;">
+Rhea pennata tarapacensis/garleppi
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+ORDER1
+</th>
+<th style="text-align:left;">
+FAMILY
+</th>
+<th style="text-align:left;">
+SPECIES_GROUP
+</th>
+<th style="text-align:left;">
+REPORT_AS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+Ostriches
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+Rheas
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+lesrhe2
+</td>
+</tr>
+</tbody>
+</table>
+<p>You can also manually download the file from <a
+href="http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2013/03/eBird_Taxonomy_v2017_18Aug2017.csv">here</a></p>
+<p> </p>
+<p>As in the previous example, we can tell <code>R</code> how to
+identify empty cells using the ‘na.strings’ argument:</p>
+<pre class="r"><code>download.file(&quot;http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2013/03/eBird_Taxonomy_v2017_18Aug2017.csv&quot;, destfile = &quot;clements_bird_list.csv&quot;)
+
+clm_lst &lt;- read.csv(&quot;clements_bird_list.csv&quot;, stringsAsFactors = FALSE)
+
+head(clm_lst)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+TAXON_ORDER
+</th>
+<th style="text-align:left;">
+CATEGORY
+</th>
+<th style="text-align:left;">
+SPECIES_CODE
+</th>
+<th style="text-align:left;">
+PRIMARY_COM_NAME
+</th>
+<th style="text-align:left;">
+SCI_NAME
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+ostric2
+</td>
+<td style="text-align:left;">
+Common Ostrich
+</td>
+<td style="text-align:left;">
+Struthio camelus
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+ostric3
+</td>
+<td style="text-align:left;">
+Somali Ostrich
+</td>
+<td style="text-align:left;">
+Struthio molybdophanes
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+slash
+</td>
+<td style="text-align:left;">
+y00934
+</td>
+<td style="text-align:left;">
+Common/Somali Ostrich
+</td>
+<td style="text-align:left;">
+Struthio camelus/molybdophanes
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+grerhe1
+</td>
+<td style="text-align:left;">
+Greater Rhea
+</td>
+<td style="text-align:left;">
+Rhea americana
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+lesrhe2
+</td>
+<td style="text-align:left;">
+Lesser Rhea
+</td>
+<td style="text-align:left;">
+Rhea pennata
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+issf
+</td>
+<td style="text-align:left;">
+lesrhe4
+</td>
+<td style="text-align:left;">
+Lesser Rhea (Puna)
+</td>
+<td style="text-align:left;">
+Rhea pennata tarapacensis/garleppi
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+ORDER1
+</th>
+<th style="text-align:left;">
+FAMILY
+</th>
+<th style="text-align:left;">
+SPECIES_GROUP
+</th>
+<th style="text-align:left;">
+REPORT_AS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+Ostriches
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+Rheas
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+lesrhe2
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+</div>
+<div id="reading-excel-files" class="section level2">
+<h2>Reading excel files</h2>
+<p>Most researchers enter data into excel spreadsheets. So it would be
+pretty handy to read the data directly from there. To read <em>xls</em>
+and <em>xlsx</em> files we need to install the package “readxl” (there
+are other packages that can be used but they all work similarly):</p>
+<pre class="r"><code>install.packages(pkgs = &quot;readxl&quot;)</code></pre>
+<p> </p>
+<p>And load it:</p>
+<pre class="r"><code>library(readxl)</code></pre>
+<p> </p>
+<p>As we did above, download an example file from an online repository.
+In this case is the same Clements bird taxonomy list in <em>xlsx</em>
+format:</p>
+<pre class="r"><code>download.file(&quot;http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2017/08/eBird_Taxonomy_v2017_18Aug2017.xlsx&quot;, destfile = &quot;clements_bird_list.xlsx&quot;)</code></pre>
+<p>You can also manually download the file from <a
+href="http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2017/08/eBird_Taxonomy_v2017_18Aug2017.xlsx">here</a></p>
+<p> </p>
+<p>Now we can use the function <code>read_excel()</code> to read the
+file:</p>
+<pre class="r"><code># read file
+clm_lst2 &lt;- read_excel(&quot;clements_bird_list.xlsx&quot;, sheet = 1)
+
+head(clm_lst2)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+TAXON_ORDER
+</th>
+<th style="text-align:left;">
+CATEGORY
+</th>
+<th style="text-align:left;">
+SPECIES_CODE
+</th>
+<th style="text-align:left;">
+PRIMARY_COM_NAME
+</th>
+<th style="text-align:left;">
+SCI_NAME
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+ostric2
+</td>
+<td style="text-align:left;">
+Common Ostrich
+</td>
+<td style="text-align:left;">
+Struthio camelus
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+ostric3
+</td>
+<td style="text-align:left;">
+Somali Ostrich
+</td>
+<td style="text-align:left;">
+Struthio molybdophanes
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+slash
+</td>
+<td style="text-align:left;">
+y00934
+</td>
+<td style="text-align:left;">
+Common/Somali Ostrich
+</td>
+<td style="text-align:left;">
+Struthio camelus/molybdophanes
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+grerhe1
+</td>
+<td style="text-align:left;">
+Greater Rhea
+</td>
+<td style="text-align:left;">
+Rhea americana
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+species
+</td>
+<td style="text-align:left;">
+lesrhe2
+</td>
+<td style="text-align:left;">
+Lesser Rhea
+</td>
+<td style="text-align:left;">
+Rhea pennata
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+issf
+</td>
+<td style="text-align:left;">
+lesrhe4
+</td>
+<td style="text-align:left;">
+Lesser Rhea (Puna)
+</td>
+<td style="text-align:left;">
+Rhea pennata tarapacensis/garleppi
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+ORDER1
+</th>
+<th style="text-align:left;">
+FAMILY
+</th>
+<th style="text-align:left;">
+SPECIES_GROUP
+</th>
+<th style="text-align:left;">
+REPORT_AS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+Ostriches
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Struthioniformes
+</td>
+<td style="text-align:left;">
+Struthionidae (Ostriches)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+Rheas
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rheiformes
+</td>
+<td style="text-align:left;">
+Rheidae (Rheas)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+lesrhe2
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>You need to specify the file name (including extension) and the excel
+sheet (tab) name. <code>read_excel()</code> auto detects the format from
+the file extension. The functions <code>read_xls()</code> and
+<code>read_xlsx()</code> can be used to read files without
+extension.</p>
+<p> </p>
+<div class="alert alert-info">
+<p><font size="5">Exercise 1</font></p>
+<p>All default functions to input data into <code>R</code> have a
+counterpart to export the same type of data. The names of these other
+functions are similar to the ones for reading data, although they
+typically start with “write” or “save”.</p>
+<p></br></p>
+<p>1.1 What are the names of the default functions for exporting the
+data formats we used above? (hint: try <code>apropos</code> to check
+which functions are available)</p>
+<p></br></p>
+<p>1.2 Export the mammals data as a <em>.csv</em> file</p>
+<p></br></p>
+<p>1.3 Export the mammals data again, this time excluding the row
+names</p>
+<p></br></p>
+<p>1.4 Read the <em>.csv</em> file using <code>read.table</code></p>
+<p></br></p>
+<p>1.5 What other packages can import excel files into
+<code>R</code>?</p>
+<p></br></p>
+<p>1.6 Can you export an excel file or add data to an existing excel
+file from <code>R</code>?</p>
+<p></br></p>
+<p>1.7 Using the “clements_bird_list.csv” file, how would you tell
+<code>R</code> to read both “Rheiformes” and “Ostriches” as empty cells
+(while still reading empty cells as empty cells)?</p>
+</div>
+<hr />
+</div>
+</div>
+<div id="formatting-data" class="section level1">
+<h1>Formatting data</h1>
+<p>This section deals with organizing your data in a way that simplify
+its handling, exploration and analysis. As you can probably guess, the
+more consistent things are done, the more predictable they become. This
+also applies to data. If data is organized with the same logic, you can
+expect the same type of manipulations and analyses to be applicable on
+different data sets. Organizing the data is a key (but usually
+neglected) aspect of the data analysis workflow. When data is properly
+organized you will spend much less time on formatting and more time on
+the actual analytic questions.</p>
+<p>When possible, we will run the data formatting examples using both
+the ‘tidyr’ package and the base <code>R</code> functions.</p>
+<div id="tidy-data" class="section level2">
+<h2>Tidy data</h2>
+<p>“Tidy data” is a logic for organizing data sets in a consistent and
+intuitive way. To run some of the code below you will need the ‘tidyr’
+and ‘dplyr’ packages, which can be installed/loaded as follows:</p>
+<pre class="r"><code>install.packages(pkgs = &quot;tidyr&quot;)
+
+install.packages(pkgs = &quot;dplyr&quot;)
+
+library(tidyr)
+
+library(dplyr)</code></pre>
+<p> </p>
+<p>The same data can be represented in many ways. In the example below
+each data set shows exactly the same values of four variables
+<em>country</em>, <em>year</em>, <em>population</em>, and
+<em>cases</em>, but in each data set values are organized in a different
+way. The data shows the number of tuberculosis cases in Afghanistan,
+Brazil, and China between 1999 and 2000:</p>
+<pre class="r"><code>as.data.frame(table1)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+cases
+</th>
+<th style="text-align:right;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+2666
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+37737
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+80488
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+212258
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+213766
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>as.data.frame(table2)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+type
+</th>
+<th style="text-align:right;">
+count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+745
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+2666
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+37737
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+80488
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+212258
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+213766
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>as.data.frame(table3)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+rate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+745/19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+2666/20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+37737/172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+80488/174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+212258/1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+213766/1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p>Or even spread across 2 different data sets:</p>
+<pre class="r"><code>as.data.frame(table4a)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+1999
+</th>
+<th style="text-align:right;">
+2000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+2666
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+37737
+</td>
+<td style="text-align:right;">
+80488
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+212258
+</td>
+<td style="text-align:right;">
+213766
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>as.data.frame(table4b)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+1999
+</th>
+<th style="text-align:right;">
+2000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>All these data sets contained the same underlying data. However, they
+are not equally easy to use.</p>
+<p>There are three interrelated rules to make a data set tidy:</p>
+<ol style="list-style-type: decimal">
+<li><p>Each variable must have its own column</p></li>
+<li><p>Each observation must have its own row</p></li>
+<li><p>Each value must have its own cell</p></li>
+</ol>
+<p>This figure shows the rules visually:</p>
+<p><img src="tidy-1.png" alt="tidy data" height="500" width="750">
+<font size="2">* Modified from <i>R for Data Science</i></font>  </p>
+<p>These three rules are interrelated because it’s impossible to only
+satisfy two of the three. That interrelationship leads to an even
+simpler set of practical instructions:</p>
+<ol style="list-style-type: decimal">
+<li><p>Put each data set in a data frame</p></li>
+<li><p>Put each variable in a column</p></li>
+</ol>
+<p> </p>
+<p>In the example above, only <code>table1</code> is tidy. It’s the only
+representation where each column is a variable. There are two main
+advantages of formatting the data in this way:</p>
+<ol style="list-style-type: decimal">
+<li><p>If you have a consistent data structure, it’s easier to learn the
+tools that work with it because they have an underlying
+uniformity</p></li>
+<li><p>Placing variables in columns fits well <code>R</code>’s
+vectorized nature. As we have seen, built-in <code>R</code> functions
+work with vectors of values. That makes transforming tidy data feel
+particularly natural</p></li>
+</ol>
+<p> </p>
+<div class="alert alert-info">
+<p><font size="5">Exercise 2</font></p>
+<p></br></p>
+<p>2.1 Describe how the variables and observations are organized in each
+of the sample data frames</p>
+<p></br></p>
+<p>2.2 Calculate the rate of cases per 10000 people for “table1”,
+“table2” and “table4a”/“table4b”</p>
+</div>
+<hr />
+</div>
+<div id="gathering-data" class="section level2">
+<h2>Gathering data</h2>
+<p>A common problem is a data set where some of the column names are not
+names of variables, but values of a variable. Take “table4a”: the column
+names 1999 and 2000 represent values of the year variable, and each row
+represents two observations, not one:</p>
+<pre class="r"><code>as.data.frame(table4a)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+1999
+</th>
+<th style="text-align:right;">
+2000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+2666
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+37737
+</td>
+<td style="text-align:right;">
+80488
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+212258
+</td>
+<td style="text-align:right;">
+213766
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>To tidy a data set like this, we need to <strong>gather</strong>
+those columns into a new pair of variables. To do this we need three
+parameters:</p>
+<ul>
+<li><p>The set of columns that represent values, not variables. In this
+example, those are the columns <code>1999</code> and
+<code>2000</code></p></li>
+<li><p>The name of the variable whose values form the column names. In
+the ‘tidyr’ syntax that is called the <code>key</code>, which in this
+case is <code>year</code></p></li>
+<li><p>The name of the variable whose values are spread over the cells.
+In the ‘tidyr’ syntax that is called that <code>value</code>, which in
+this case is the number of <code>cases</code></p></li>
+</ul>
+<p>These parameters can be used to create a tidy data set using the
+function <code>gather()</code>:</p>
+<pre class="r"><code>gather(table4a, key = &quot;year&quot;, value = &quot;cases&quot;, `1999`, `2000`)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+year
+</th>
+<th style="text-align:right;">
+cases
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+745
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+37737
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+212258
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+2666
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+80488
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+213766
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can visualize this formatting as follows:</p>
+<p><img src="gather.png" alt="gather data" height="500" width="850">
+<font size="2">* Modified from <i>R for Data Science</i></font>  </p>
+<p><code>gather()</code> can also be used to tidy <code>table4b</code>.
+The only difference is the variable stored in the cell values:</p>
+<pre class="r"><code>gather(data = table4b, key = &quot;year&quot;, value = &quot;population&quot;, `1999`, `2000`)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+year
+</th>
+<th style="text-align:right;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>To combine the tidied versions of <code>table4a</code> and
+<code>table4b</code> into a single data frame (or ‘tibble’), we can
+either use <code>dplyr::left_join()</code> or <code>merge()</code> from
+base <code>R</code>:</p>
+<pre class="r"><code>tidy4a &lt;- gather(table4a, key = &quot;year&quot;, value = &quot;cases&quot;, `1999`, `2000`)
+
+tidy4b &lt;- gather(table4b, key = &quot;year&quot;, value = &quot;population&quot;, `1999`, `2000`)
+
+left_join(x = tidy4a, y = tidy4b, by = c(&quot;country&quot;, &quot;year&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+year
+</th>
+<th style="text-align:right;">
+cases
+</th>
+<th style="text-align:right;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+37737
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+212258
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+2666
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+80488
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+213766
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<pre class="r"><code>merge(x = tidy4a, y =  tidy4b, by = c(&quot;country&quot;, &quot;year&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+year
+</th>
+<th style="text-align:right;">
+cases
+</th>
+<th style="text-align:right;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+2666
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+37737
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+80488
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:right;">
+212258
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+2000
+</td>
+<td style="text-align:right;">
+213766
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+</div>
+<div id="spreading" class="section level2">
+<h2>Spreading</h2>
+<p>Spreading is the opposite of gathering. You use it when an
+observation is scattered across multiple rows. For example, in
+<code>table2</code> an observation is a country in a year, but each
+observation is spread across two rows:</p>
+<pre class="r"><code>table2</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+type
+</th>
+<th style="text-align:right;">
+count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+745
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+2666
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+37737
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+80488
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+212258
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+cases
+</td>
+<td style="text-align:right;">
+213766
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>To tidy this data set up, we only need two parameters:</p>
+<ul>
+<li><p>The column that contains variable names, the <code>key</code>
+column. Here, it’s <code>type</code>.</p></li>
+<li><p>The column that contains values forms multiple variables, the
+<code>value</code> column. Here it’s <code>count</code>.</p></li>
+</ul>
+<p> </p>
+<p>To do this we can use <code>spread()</code>:</p>
+<pre class="r"><code>spread(table2, key = &quot;type&quot;, value = &quot;count&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+cases
+</th>
+<th style="text-align:right;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+2666
+</td>
+<td style="text-align:right;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+37737
+</td>
+<td style="text-align:right;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+80488
+</td>
+<td style="text-align:right;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+212258
+</td>
+<td style="text-align:right;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+213766
+</td>
+<td style="text-align:right;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>which can be visualized as follows:</p>
+<p><img src="spreading.png" alt="spreading data" height="500" width="850">
+<font size="2">* Modified from <i>R for Data Science</i></font>  </p>
+<p><code>spread()</code> and <code>gather()</code> are complementary
+functions. <code>gather()</code> makes wide tables narrower and longer;
+<code>spread()</code> makes long tables shorter and wider.</p>
+<p> </p>
+<div class="alert alert-info">
+<p><font size="5">Exercise 3</font></p>
+<p></br></p>
+<p>3.1 Tidy up the following data set on tree height for 2 species:</p>
+<pre class="r"><code>plnt_sz &lt;- data.frame(forest = c(&quot;old_growth&quot;, &quot;disturbed&quot;), 
+                      Species_1 = c(154, 160), 
+                      Species_2 = c(120, 113))</code></pre>
+</div>
+<p> </p>
+<hr />
+<p><font size="5">Separating and uniting</font></p>
+<p>So far we have fixed “table2” and “table4”, but not “table3”.
+“table3” has a different problem: we have one column (<em>rate</em>)
+that contains two variables (<em>cases and </em>population*). This can
+be fixed using the <code>separate()</code> function . We will also look
+at its complement<code>unite()</code>, which is used when a single
+variable is spread across multiple columns.</p>
+<p> </p>
+</div>
+<div id="separate" class="section level2">
+<h2>Separate</h2>
+<p><code>separate()</code> pulls apart one column into multiple columns,
+by splitting wherever a separator character appears. Take
+<code>table3</code>:</p>
+<pre class="r"><code>as.data.frame(table3)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+rate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+745/19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+2666/20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+37737/172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+80488/174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+212258/1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+213766/1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p>Visually it does something like this:</p>
+<p><img src="separate.png" alt="separate data" height="500" width="850">
+<font size="2">* Modified from <i>R for Data Science</i></font></p>
+<p> </p>
+<p>The <em>rate</em> column contains both <em>cases</em> and
+<em>population</em> variables, and we need to split it into two
+variables. <code>separate()</code> takes the name of the column to
+separate, and the names of the new columns to be created:</p>
+<pre class="r"><code>separate(data = table3, col =  rate, into = c(&quot;cases&quot;, &quot;population&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+cases
+</th>
+<th style="text-align:left;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+745
+</td>
+<td style="text-align:left;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+2666
+</td>
+<td style="text-align:left;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+37737
+</td>
+<td style="text-align:left;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+80488
+</td>
+<td style="text-align:left;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+212258
+</td>
+<td style="text-align:left;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+213766
+</td>
+<td style="text-align:left;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p>By default, <code>separate()</code> will split based on any
+non-alphanumeric character (i.e. a character that isn’t a number or
+letter). In the code above, <code>separate()</code> split the values of
+<em>rate</em> at the forward slash characters. This can be explicitly
+stated (to avoid any errors):</p>
+<pre class="r"><code>tb3 &lt;- separate(data = table3, col = rate,  into = c(&quot;cases&quot;, &quot;population&quot;), sep = &quot;/&quot;)
+
+tb3 </code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+cases
+</th>
+<th style="text-align:left;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+745
+</td>
+<td style="text-align:left;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+2666
+</td>
+<td style="text-align:left;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+37737
+</td>
+<td style="text-align:left;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+80488
+</td>
+<td style="text-align:left;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+212258
+</td>
+<td style="text-align:left;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+213766
+</td>
+<td style="text-align:left;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## tibble [6 × 4] (S3: tbl_df/tbl/data.frame)
+##  $ country   : chr [1:6] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Brazil&quot; &quot;Brazil&quot; ...
+##  $ year      : num [1:6] 1999 2000 1999 2000 1999 ...
+##  $ cases     : chr [1:6] &quot;745&quot; &quot;2666&quot; &quot;37737&quot; &quot;80488&quot; ...
+##  $ population: chr [1:6] &quot;19987071&quot; &quot;20595360&quot; &quot;172006362&quot; &quot;174504898&quot; ...</code></pre>
+<p> </p>
+<p>Note that the <em>case</em> and <em>population</em> are character
+columns. By default <code>separate()</code> leaves the type of the new
+columns as in the original one. In this case this is not ideal as those
+really are numbers. We can ask <code>separate()</code> to try and
+convert to better types using <code>convert = TRUE</code>:</p>
+<pre class="r"><code>tb3 &lt;- separate(data = table3, col = rate, into = c(&quot;cases&quot;, &quot;population&quot;), convert = TRUE)
+
+str(tb3)</code></pre>
+<pre><code>## tibble [6 × 4] (S3: tbl_df/tbl/data.frame)
+##  $ country   : chr [1:6] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Brazil&quot; &quot;Brazil&quot; ...
+##  $ year      : num [1:6] 1999 2000 1999 2000 1999 ...
+##  $ cases     : int [1:6] 745 2666 37737 80488 212258 213766
+##  $ population: int [1:6] 19987071 20595360 172006362 174504898 1272915272 1280428583</code></pre>
+<p> </p>
+<p>You can also pass a vector of integers to <code>sep</code>, which
+will be interpreted as positions to split at. Positive values start at 1
+on the far-left of the strings; negative value start at -1 on the
+far-right of the strings. When using integers to separate strings, the
+length of <code>sep</code> should be one less than the number of names
+in <code>into</code>. You can use this to separate the last two digits
+of each year:</p>
+<pre class="r"><code>separate(data = table3, col = year, into = c(&quot;century&quot;, &quot;year&quot;), 
+         sep = 2)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+century
+</th>
+<th style="text-align:left;">
+year
+</th>
+<th style="text-align:left;">
+rate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+99
+</td>
+<td style="text-align:left;">
+745/19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+00
+</td>
+<td style="text-align:left;">
+2666/20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+99
+</td>
+<td style="text-align:left;">
+37737/172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+00
+</td>
+<td style="text-align:left;">
+80488/174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+99
+</td>
+<td style="text-align:left;">
+212258/1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+00
+</td>
+<td style="text-align:left;">
+213766/1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p>Separating columns can also be done with base <code>R</code>,
+although it takes a bit more coding:</p>
+<pre class="r"><code>table3$cases &lt;- sapply(table3$rate, function(x) try(strsplit(x, &quot;/&quot;)[[1]][1]), USE.NAMES = FALSE)
+
+table3$population &lt;- sapply(table3$rate, function(x) try(strsplit(x, &quot;/&quot;)[[1]][2]), USE.NAMES = FALSE)
+
+tb3 </code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+rate
+</th>
+<th style="text-align:left;">
+cases
+</th>
+<th style="text-align:left;">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+745/19987071
+</td>
+<td style="text-align:left;">
+745
+</td>
+<td style="text-align:left;">
+19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+2666/20595360
+</td>
+<td style="text-align:left;">
+2666
+</td>
+<td style="text-align:left;">
+20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+37737/172006362
+</td>
+<td style="text-align:left;">
+37737
+</td>
+<td style="text-align:left;">
+172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+80488/174504898
+</td>
+<td style="text-align:left;">
+80488
+</td>
+<td style="text-align:left;">
+174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:left;">
+212258/1272915272
+</td>
+<td style="text-align:left;">
+212258
+</td>
+<td style="text-align:left;">
+1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:left;">
+213766/1280428583
+</td>
+<td style="text-align:left;">
+213766
+</td>
+<td style="text-align:left;">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## tibble [6 × 4] (S3: tbl_df/tbl/data.frame)
+##  $ country   : chr [1:6] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Brazil&quot; &quot;Brazil&quot; ...
+##  $ year      : num [1:6] 1999 2000 1999 2000 1999 ...
+##  $ cases     : chr [1:6] &quot;745&quot; &quot;2666&quot; &quot;37737&quot; &quot;80488&quot; ...
+##  $ population: chr [1:6] &quot;19987071&quot; &quot;20595360&quot; &quot;172006362&quot; &quot;174504898&quot; ...</code></pre>
+<p> </p>
+</div>
+<div id="unite" class="section level2">
+<h2>Unite</h2>
+<p><code>unite()</code> is the inverse of <code>separate()</code>:
+combining multiple columns into a single column:</p>
+<p><img src="unite.png" alt="unite data" height="500" width="850">
+<font size="2">* Modified from <i>R for Data Science</i></font></p>
+<p> </p>
+<p>However, you will need it much less frequently than
+<code>separate()</code>.</p>
+<p>We can use <code>unite()</code> to rejoin the <em>century</em> and
+<em>year</em> columns that we created above:</p>
+<pre class="r"><code>unite(data = table5, col = &quot;new&quot;, &quot;century&quot;, &quot;year&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+new
+</th>
+<th style="text-align:left;">
+rate
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+19_99
+</td>
+<td style="text-align:left;">
+745/19987071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+20_00
+</td>
+<td style="text-align:left;">
+2666/20595360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+19_99
+</td>
+<td style="text-align:left;">
+37737/172006362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+20_00
+</td>
+<td style="text-align:left;">
+80488/174504898
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+19_99
+</td>
+<td style="text-align:left;">
+212258/1272915272
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+20_00
+</td>
+<td style="text-align:left;">
+213766/1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<p>In this function we can also use the <code>sep</code> argument
+(although in this example it was not specified).</p>
+<p> </p>
+<div class="alert alert-info">
+<p><font size="5">Exercise 3</font></p>
+<p></br></p>
+<p>3.1 Unite <em>century</em> and <em>year</em> in “table5” using base
+<code>R</code> (hint: <code>paste()</code>)</p>
+<p></br></p>
+</div>
+<hr />
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li><p>Clements, J. F., T. S. Schulenberg, M. J. Iliff, D. Roberson, T.
+A. Fredericks, B. L. Sullivan, and C. L. Wood. 2017. <em>The
+eBird/Clements checklist of birds of the world: v2016</em>.</p></li>
+<li><p>Jones, Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin
+O’Dell, C. David L. Orme, Kamran Safi, Wes Sechrest, Elizabeth H.
+Boakes, Chris Carbone, Christina Connolly, Michael J. Cutts, Janine K.
+Foster, Richard Grenyer, Michael Habib, Christopher A. Plaster, Samantha
+A. Price, Elizabeth A. Rigby, Janna Rist, Amber Teacher, Olaf R. P.
+Bininda-Emonds, John L. Gittleman, Georgina M. Mace, and Andy Purvis.
+2009. <em>PanTHERIA: a species-level database of life history, ecology,
+and geography of extant and recently extinct mammals</em>. Ecology
+90:2648.</p></li>
+<li><p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for data
+science: import, tidy, transform, visualize, and model data</em>. <a
+href="http://r4ds.had.co.nz">website</a></p></li>
+<li><p><a
+href="https://www.datacamp.com/community/tutorials/r-data-import-tutorial">Data
+import tutorial- DataCamp</a></p></li>
+</ul>
+<hr />
+<p><font size="4">Session information</font></p>
+<pre><code>## R version 4.2.2 Patched (2022-11-10 r83330)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.5 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=es_ES.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=es_CR.UTF-8        LC_COLLATE=es_ES.UTF-8    
+##  [5] LC_MONETARY=es_CR.UTF-8    LC_MESSAGES=es_ES.UTF-8   
+##  [7] LC_PAPER=es_CR.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=es_CR.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] dplyr_1.1.0        tidyr_1.3.0        readxl_1.4.1       kableExtra_1.3.4  
+## [5] knitr_1.42         ggplot2_3.4.2      RColorBrewer_1.1-3
+## 
+## loaded via a namespace (and not attached):
+##  [1] cellranger_1.1.0  bslib_0.4.2       compiler_4.2.2    pillar_1.9.0     
+##  [5] jquerylib_0.1.4   tools_4.2.2       digest_0.6.31     viridisLite_0.4.2
+##  [9] jsonlite_1.8.4    evaluate_0.21     lifecycle_1.0.3   tibble_3.2.1     
+## [13] gtable_0.3.3      pkgconfig_2.0.3   rlang_1.1.1       cli_3.6.1        
+## [17] rstudioapi_0.14   yaml_2.3.7        xfun_0.39         fastmap_1.1.1    
+## [21] stringr_1.5.0     xml2_1.3.4        httr_1.4.6        withr_2.5.0      
+## [25] systemfonts_1.0.4 generics_0.1.3    vctrs_0.6.2       sass_0.4.6       
+## [29] webshot_0.5.4     grid_4.2.2        tidyselect_1.2.0  svglite_2.1.0    
+## [33] glue_1.6.2        R6_2.5.1          fansi_1.0.4       rmarkdown_2.21   
+## [37] purrr_1.0.1       magrittr_2.0.3    scales_1.2.1      htmltools_0.5.5  
+## [41] rvest_1.0.3       colorspace_2.1-0  utf8_1.2.3        stringi_1.7.12   
+## [45] munsell_0.5.0     cachem_1.0.8</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
