@@ -340,9 +340,7 @@ As in the previous example, we can tell `R` how to identify empty cells using th
 
 ```{r, eval = F, echo= T}
 
-download.file("http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2013/03/eBird_Taxonomy_v2017_18Aug2017.csv", destfile = "clements_bird_list.csv")
-
-clm_lst <- read.csv("clements_bird_list.csv", stringsAsFactors = FALSE)
+clm_lst <- read.csv("clements_bird_list.csv", stringsAsFactors = FALSE, na.strings = "")
 
 head(clm_lst)
 

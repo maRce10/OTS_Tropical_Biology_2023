@@ -1,10 +1,10 @@
-name: "Stats Workshop OTS-Tropical biology 2023"
+name: "Stats Workshop OTS-Tropical Biology 2023"
 output_dir: "docs"
 output:
   html_document:
     css: extra.css
 navbar:
-  title: "Stats Workshop OTS-Tropical biology 2023"
+  title: "Stats Workshop OTS-Tropical Biology 2023"
   left:
     - text: "Tutorials"
       menu:
@@ -14,6 +14,8 @@ navbar:
         href: linear_regression_models.html
       - text: "Common stats as linear models"
         href: common_stats_as_lms.html
+      - text: "Import data into R"
+        href: importing_data.html
       - text: "Graphs with ggplot2"
         href: graphs_with_ggplot2.html
     - text: "Course prep"
