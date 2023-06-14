@@ -9,11 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Marcelo Araya-Salas, PhD" />
+<meta name="author" content=" ¶ Marcelo Araya-Salas, PhD ¶  ¶   ¶  ¶ BIONB 7200, Lec 002 (#18319), Spring 2018 ¶  ¶   ¶  ¶ Neurobiology and Behavior, Cornell University ¶ " />
 
-<meta name="date" content="2023-06-14" />
 
-<title>Importing and formatting data</title>
+<title> ¶ Importing and formatting data ¶ </title>
 
 <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -374,29 +373,20 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore"><font size="7"><b>Importing and formatting
-data</b></font></h1>
-<h3 class="subtitle"><font size="4"><b>OTS Tropical Biology 2023</b><br>
-Organization for Tropical Studies</font></h3>
-<h4 class="author"><font size="3"><a href="https://marce10.github.io/">Marcelo
-Araya-Salas, PhD</a></font></h4>
-<h4 class="date">2023-06-14</h4>
+<h1 class="title toc-ignore"><center> ¶ <font size="7"><b>Importing and
+formatting data</b></font> ¶ </center></h1>
+<h4 class="author"><center> ¶
+<a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas,
+PhD</a></font> ¶ </center> ¶   ¶ <center> ¶ BIONB 7200, Lec 002
+(#18319), Spring 2018 ¶ </center> ¶   ¶ <center> ¶ Neurobiology and
+Behavior, Cornell University ¶ </center></h4>
+<h4 class="date"><center> ¶ 14-06-2023 ¶ </center></h4>
 
 </div>
 
 
-<div id="objetives" class="section level3 alert alert-info">
-<h3>Objetives</h3>
-<p> </p>
-<ul>
-<li><p>Understand the logic used by ggplot2 to structure graphs</p></li>
-<li><p>Get familiar with its basic functions and types layer</p></li>
-</ul>
-</div>
-<p> </p>
-<div id="before-importing-data"
-class="section level1 alert alert-warning">
-<h1>Before importing data</h1>
+<div id="before-importing-data" class="section level3">
+<h3>Before importing data</h3>
 <p>There are a few habits for data entry that will make it easier to
 import data correctly into <code>R</code>:</p>
 <ul>
@@ -414,10 +404,10 @@ always in the same way)</p></li>
 spaces)</p></li>
 <li><p>Don’t even think about color-coding your data in excel</p></li>
 </ul>
-</div>
 <p> </p>
-<div id="importing-data" class="section level1">
-<h1>Importing data</h1>
+</div>
+<div id="importing-data" class="section level3">
+<h3>Importing data</h3>
 <p>Importing data into <code>R</code> is a crucial and apparently simple
 step. However, given the diversity of data formats and operating
 systems, as well as the many possible sources of error, inputting data
@@ -431,8 +421,9 @@ found</p></li>
 <li><p>Handling empty cells and uncommon characters</p></li>
 </ul>
 <p> </p>
-<div id="setting-the-working-directory" class="section level2">
-<h2>Setting the working directory</h2>
+</div>
+<div id="setting-the-working-directory" class="section level3">
+<h3>Setting the working directory</h3>
 <p>To read data in R you need to specify the working directory. It can
 be set with the function <code>setwd()</code>. The way you do this
 depends on the operating system (windows, mac, Linux). The folder
@@ -459,7 +450,7 @@ working directory</p></li>
 pressing “tab” when within quotes:</p></li>
 </ul>
 <p> </p>
-<p><img src="suggest_folder.gif" alt="Color spectro" height="150" width="550"></p>
+<p><img src="suggest_folder.gif" alt="Color spectro" height="500" width="550"></p>
 <p> </p>
 <p><font size="5">Setting the working directory in windows</font></p>
 <p>In windows it should be something like this:</p>
@@ -490,8 +481,8 @@ in Linux:</p>
 <pre><code>## [1] &quot;/home/m/Dropbox/courses_and_workshops/OTS_TB_2023&quot;</code></pre>
 <p> </p>
 </div>
-<div id="reading-data" class="section level2">
-<h2>Reading data</h2>
+<div id="reading-data" class="section level3">
+<h3>Reading data</h3>
 <p>Any file can be read in <code>R</code>. It’s just a matter of letting
 <code>R</code> know in which format is the file encoded (e.g. what
 conventions were followed when generating the file). The most common
@@ -513,12 +504,15 @@ first download a freely available data set in <em>.txt</em> format:</p>
 setwd(&quot;PUT THE FOLDER LOCATION WHERE YOU WANT TO SAVE THE FILE HERE&quot;)
 
 download.file(&quot;http://esapubs.org/archive/ecol/E090/184/PanTHERIA_1-0_WR93_Aug2008.txt&quot;, destfile = &quot;pantheria_mammals_data.txt&quot;)</code></pre>
-<p><em>You can also manually download the file from <a
-href="http://esapubs.org/archive/ecol/E090/184/PanTHERIA_1-0_WR93_Aug2008.txt">here</a></em></p>
+<p>You can also manually download the file from <a
+href="http://esapubs.org/archive/ecol/E090/184/PanTHERIA_1-0_WR93_Aug2008.txt">here</a></p>
 <p> </p>
 <p>The file can be input into <code>R</code> as follows:</p>
 <pre class="r"><code># read file
-pntr_dt &lt;- read.table(&quot;pantheria_mammals_data.txt&quot;, stringsAsFactors = FALSE, sep = &quot;\t&quot;, header = TRUE)</code></pre>
+pntr_dt &lt;- read.table(&quot;pantheria_mammals_data.txt&quot;, stringsAsFactors = FALSE, sep = &quot;\t&quot;, header = TRUE)
+
+# check data types for each column
+sapply(pntr_dt[, 1:10], class)</code></pre>
 <pre class="r"><code># check structure
 head(pntr_dt)</code></pre>
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1501,8 +1495,8 @@ lesrhe2
 </table>
 <p> </p>
 </div>
-<div id="reading-excel-files" class="section level2">
-<h2>Reading excel files</h2>
+<div id="reading-excel-files" class="section level3">
+<h3>Reading excel files</h3>
 <p>Most researchers enter data into excel spreadsheets. So it would be
 pretty handy to read the data directly from there. To read <em>xls</em>
 and <em>xlsx</em> files we need to install the package “readxl” (there
@@ -1791,9 +1785,8 @@ file from <code>R</code>?</p>
 </div>
 <hr />
 </div>
-</div>
-<div id="formatting-data" class="section level1">
-<h1>Formatting data</h1>
+<div id="formatting-data" class="section level3">
+<h3>Formatting data</h3>
 <p>This section deals with organizing your data in a way that simplify
 its handling, exploration and analysis. As you can probably guess, the
 more consistent things are done, the more predictable they become. This
@@ -1805,8 +1798,9 @@ organized you will spend much less time on formatting and more time on
 the actual analytic questions.</p>
 <p>When possible, we will run the data formatting examples using both
 the ‘tidyr’ package and the base <code>R</code> functions.</p>
-<div id="tidy-data" class="section level2">
-<h2>Tidy data</h2>
+</div>
+<div id="tidy-data" class="section level3">
+<h3>Tidy data</h3>
 <p>“Tidy data” is a logic for organizing data sets in a consistent and
 intuitive way. To run some of the code below you will need the ‘tidyr’
 and ‘dplyr’ packages, which can be installed/loaded as follows:</p>
@@ -2349,8 +2343,8 @@ of the sample data frames</p>
 </div>
 <hr />
 </div>
-<div id="gathering-data" class="section level2">
-<h2>Gathering data</h2>
+<div id="gathering-data" class="section level3">
+<h3>Gathering data</h3>
 <p>A common problem is a data set where some of the column names are not
 names of variables, but values of a variable. Take “table4a”: the column
 names 1999 and 2000 represent values of the year variable, and each row
@@ -2818,8 +2812,8 @@ China
 </table>
 <p> </p>
 </div>
-<div id="spreading" class="section level2">
-<h2>Spreading</h2>
+<div id="spreading" class="section level3">
+<h3>Spreading</h3>
 <p>Spreading is the opposite of gathering. You use it when an
 observation is scattered across multiple rows. For example, in
 <code>table2</code> an observation is a country in a year, but each
@@ -3155,8 +3149,8 @@ at its complement<code>unite()</code>, which is used when a single
 variable is spread across multiple columns.</p>
 <p> </p>
 </div>
-<div id="separate" class="section level2">
-<h2>Separate</h2>
+<div id="separate" class="section level3">
+<h3>Separate</h3>
 <p><code>separate()</code> pulls apart one column into multiple columns,
 by splitting wherever a separator character appears. Take
 <code>table3</code>:</p>
@@ -3741,8 +3735,8 @@ China
 ##  $ population: chr [1:6] &quot;19987071&quot; &quot;20595360&quot; &quot;172006362&quot; &quot;174504898&quot; ...</code></pre>
 <p> </p>
 </div>
-<div id="unite" class="section level2">
-<h2>Unite</h2>
+<div id="unite" class="section level3">
+<h3>Unite</h3>
 <p><code>unite()</code> is the inverse of <code>separate()</code>:
 combining multiple columns into a single column:</p>
 <p><img src="unite.png" alt="unite data" height="500" width="850">
@@ -3848,8 +3842,8 @@ China
 </div>
 <hr />
 </div>
-<div id="references" class="section level2">
-<h2>References</h2>
+<div id="references" class="section level3">
+<h3>References</h3>
 <ul>
 <li><p>Clements, J. F., T. S. Schulenberg, M. J. Iliff, D. Roberson, T.
 A. Fredericks, B. L. Sullivan, and C. L. Wood. 2017. <em>The
@@ -3936,7 +3930,6 @@ import tutorial- DataCamp</a></p></li>
 ## [106] xtable_1.8-4        httpuv_1.6.6        numDeriv_2016.8-1.1
 ## [109] textshaping_0.3.6   munsell_0.5.0       viridisLite_0.4.2  
 ## [112] bslib_0.4.2         sessioninfo_1.2.2</code></pre>
-</div>
 </div>
 
 
