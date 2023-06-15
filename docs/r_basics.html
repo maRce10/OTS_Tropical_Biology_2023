@@ -511,20 +511,31 @@ Array
 strings are actually vectors of length one.</p>
 <div id="atomic-vectors" class="section level2">
 <h2>Atomic vectors</h2>
-<p>Types of atomic vectors:</p>
+<p>These are the building blocks of any other object types. There are 4
+basic types of atomic vectors:</p>
 <ul>
-<li>Logical <a
-href="https://en.wikipedia.org/wiki/Boolean">(boolean)</a></li>
-<li>Integer</li>
 <li>Numeric (double)</li>
 <li>Character</li>
+<li>Factor</li>
+<li>Logical <a
+href="https://en.wikipedia.org/wiki/Boolean">(boolean)</a></li>
 </ul>
+<div id="numeric-vectors" class="section level3">
+<h3>Numeric vectors</h3>
 <p>Vectors are built using <code>c()</code>:</p>
 <pre class="r numberLines lineAnchors"><code>
 x &lt;- 1
+
 x1 &lt;- c(1)
 </code></pre>
 <p> </p>
+</div>
+<div id="character-vectors" class="section level3">
+<h3>Character vectors</h3>
+<p>Character vectors can be built in the same way:</p>
+<pre class="r numberLines lineAnchors"><code>v &lt;- &quot;a&quot;
+
+v &lt;- c(&quot;a&quot;, &quot;b&quot;)</code></pre>
 <p>Vectors can only contain entries of the same type. Different types
 will be coerced to the most flexible type:</p>
 <pre class="r numberLines lineAnchors"><code>
@@ -548,6 +559,38 @@ x
 class(x)
 ## [1] &quot;character&quot;</code></pre>
 <p> </p>
+</div>
+<div id="factors" class="section level3">
+<h3>Factors</h3>
+<p>A factor is a vector that can contain only predefined values, and is
+used to store categorical data.</p>
+<p>Factors are built on character vectors using two attributes:</p>
+<ul>
+<li>class “factor”: makes them behave differently from regular integer
+vectors</li>
+<li>levels: defines the set of allowed values</li>
+</ul>
+<pre class="r numberLines lineAnchors"><code>x &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;a&quot;))
+x</code></pre>
+<pre><code>## [1] a b b a
+## Levels: a b</code></pre>
+<pre class="r numberLines lineAnchors"><code>levels(x)</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot;</code></pre>
+<pre class="r numberLines lineAnchors"><code>str(x)</code></pre>
+<pre><code>##  Factor w/ 2 levels &quot;a&quot;,&quot;b&quot;: 1 2 2 1</code></pre>
+<p> </p>
+</div>
+<div id="logical-vectors" class="section level3">
+<h3>Logical vectors</h3>
+<p>These are binary vectors than containing <code>TRUE</code> and/or
+<code>FALSE</code> elements:</p>
+<pre class="r numberLines lineAnchors"><code>lv &lt;- c(TRUE, FALSE)</code></pre>
+<p>Notice that <code>TRUE</code> and <code>FALSE</code> are objects that
+already exist in the R environment so they don’t need to be quoted.</p>
+<p> </p>
+</div>
+<div id="missing-values" class="section level3">
+<h3>Missing values</h3>
 <p>Missing values are specified with NA, which is a logical vector of
 length 1. NA will always be coerced to the correct type if used inside
 <code>c()</code>:</p>
@@ -562,6 +605,7 @@ v &lt;- c(1:3, NA)
 class(v)
 ## [1] &quot;integer&quot;</code></pre>
 <p> </p>
+</div>
 </div>
 <div id="lists" class="section level2">
 <h2>Lists</h2>
@@ -594,35 +638,6 @@ str(l)</code></pre>
 ##  $ : num [1:3] 1 2 3
 ##  $ : logi [1:4] FALSE TRUE FALSE FALSE</code></pre>
 <p> </p>
-<div id="factors" class="section level3">
-<h3>Factors</h3>
-<p>Attributes are used to define factors. A factor is a vector that can
-contain only predefined values, and is used to store categorical
-data.</p>
-<p>Factors are built on top of integer vectors using two attributes:</p>
-<ul>
-<li>class “factor”: makes them behave differently from regular integer
-vectors</li>
-<li>levels: defines the set of allowed values</li>
-</ul>
-<pre class="r numberLines lineAnchors"><code>x &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;a&quot;))
-x</code></pre>
-<pre><code>## [1] a b b a
-## Levels: a b</code></pre>
-<pre class="r numberLines lineAnchors"><code>levels(x)</code></pre>
-<pre><code>## [1] &quot;a&quot; &quot;b&quot;</code></pre>
-<pre class="r numberLines lineAnchors"><code>str(x)</code></pre>
-<pre><code>##  Factor w/ 2 levels &quot;a&quot;,&quot;b&quot;: 1 2 2 1</code></pre>
-<p> </p>
-<p>Factors look like character vectors but they are actually
-integers:</p>
-<pre class="r numberLines lineAnchors"><code>x &lt;- factor(c(&quot;a&quot;, &quot;b&quot;, &quot;b&quot;, &quot;a&quot;))
-
-c(x)</code></pre>
-<pre><code>## [1] a b b a
-## Levels: a b</code></pre>
-<p> </p>
-</div>
 </div>
 <div id="matrices" class="section level2">
 <h2>Matrices</h2>
@@ -721,10 +736,10 @@ bi &lt;- builtins()
 length(bi)</code></pre>
 <pre><code>## [1] 1375</code></pre>
 <pre class="r numberLines lineAnchors"><code>sample(bi, 10)</code></pre>
-<pre><code>##  [1] &quot;serverSocket&quot;          &quot;as.symbol&quot;             &quot;dimnames&lt;-.data.frame&quot;
-##  [4] &quot;.maskedMsg&quot;            &quot;aperm&quot;                 &quot;close.connection&quot;     
-##  [7] &quot;print.Dlist&quot;           &quot;.packages&quot;             &quot;bitwNot&quot;              
-## [10] &quot;[[&lt;-.POSIXlt&quot;</code></pre>
+<pre><code>##  [1] &quot;.Library.site&quot;      &quot;as.numeric_version&quot; &quot;dynGet&quot;            
+##  [4] &quot;pi&quot;                 &quot;match.fun&quot;          &quot;as.pairlist&quot;       
+##  [7] &quot;is.double&quot;          &quot;units.difftime&quot;     &quot;strtoi&quot;            
+## [10] &quot;curlGetHeaders&quot;</code></pre>
 <p> </p>
 <p>Operators are functions:</p>
 <pre class="r numberLines lineAnchors"><code>1 + 1</code></pre>
@@ -1111,14 +1126,16 @@ vectors to be used for subsetting:</p>
 <div class="alert alert-info">
 <p><font size="5">Exercise</font></p>
 <p> </p>
+<p>Use square braindexing</p>
 <ol style="list-style-type: decimal">
 <li><p>Subset the observations in <code>iris</code> for which sepal
 length is lower than 5 and save it as a new data frame</p></li>
 <li><p>Subset the observations in <code>iris</code> for which petal
 width is equal or higher than 2 and save it as a new data frame</p></li>
 <li><p>Subset the observations in <code>iris</code> belonging to the
-species virginica</p></li>
+species “virginica”</p></li>
 </ol>
+<p>*(Yo must not use the function <code>subset()</code>)</p>
 </div>
 <p> </p>
 <hr />
@@ -1160,30 +1177,15 @@ regular English)</li>
 <li>Place a space before left parenthesis, except in a function
 call</li>
 </ul>
-<pre class="r numberLines lineAnchors"><code>  - GOOD: 
-          a &lt;- rnorm(n = 10, sd = 10, mean = 1)
-          tab.prior &lt;- table(df[df$days.from.opt &lt; 0, &quot;campaign.id&quot;])
-          total &lt;- sum(x[, 1])
-          total &lt;- sum(x[1, ])
-          if (debug)
-          mean(1:10)
-          
-  - BAD: 
-         a&lt;-rnorm(n=10,sd=10,mean=1)
-         tab.prior &lt;- table(df[df$days.from.opt&lt;0, &quot;campaign.id&quot;])  # Needs spaces around &#39;&lt;&#39;
-         tab.prior &lt;- table(df[df$days.from.opt &lt; 0,&quot;campaign.id&quot;])  # Needs a space after the comma
-         tab.prior&lt;- table(df[df$days.from.opt &lt; 0, &quot;campaign.id&quot;])  # Needs a space before &lt;-
-         tab.prior&lt;-table(df[df$days.from.opt &lt; 0, &quot;campaign.id&quot;])  # Needs spaces around &lt;-
-         total &lt;- sum(x[,1])  # Needs a space after the comma
-         total &lt;- sum(x[ ,1])  # Needs a space after the comma, not before  
-         if(debug) # Needs a space before parenthesis
-         mean (1:10) # ) # Extra space before parenthesis</code></pre>
+<pre class="r numberLines lineAnchors"><code>-GOOD:a &lt;- rnorm(n = 10, sd = 10, mean = 1)
+
+-BAD:a &lt;- rnorm(n = 10, sd = 10, mean = 1)</code></pre>
 <p> </p>
-<p>Curly braces:</p>
+<p>Curly brackets:</p>
 <ul>
 <li>An opening curly brace should never go on its own line</li>
 <li>Closing curly brace should always go on its own line</li>
-<li>You may omit curly braces when a block consists of a single
+<li>You may omit curly brackets when a block consists of a single
 statement</li>
 </ul>
 <pre class="r numberLines lineAnchors"><code>-GOOD:if (is.null(ylim)) {
@@ -1194,10 +1196,6 @@ if (is.null(ylim)) ylim &lt;- c(0, 0.06)
 
 -BAD: -BAD:
 if (is.null(ylim)) ylim &lt;- c(0, 0.06)
-
-if (is.null(ylim)) {
-    ylim &lt;- c(0, 0.06)
-}
 
 if (is.null(ylim)) {
     ylim &lt;- c(0, 0.06)
@@ -1224,17 +1222,6 @@ hist(df$pct.spent,
      main   = &quot;Histogram: fraction budget spent by campaignid&quot;,
      xlab   = &quot;Fraction of budget spent&quot;,
      ylab   = &quot;Frequency (count of campaignids)&quot;)</code></pre>
-<p> </p>
-<p>General Layout and Ordering (google style):</p>
-<ul>
-<li>Copyright statement comment (?)</li>
-<li>Author comment</li>
-<li>File description comment, including purpose of program, inputs, and
-outputs</li>
-<li>source() and library() statements</li>
-<li>Function definitions</li>
-<li>Executed statements, if applicable (e.g., print, plot)</li>
-</ul>
 <hr />
 <p> </p>
 </div>
@@ -1290,17 +1277,7 @@ of a package (optional, can be several per package).</p>
 <p>Vignettes can be called directly from R:</p>
 <pre class="r numberLines lineAnchors"><code>vgn &lt;- browseVignettes()</code></pre>
 <pre class="r numberLines lineAnchors"><code>vignette()</code></pre>
-<p>They should also be listed in the package CRAN page.</p>
-<p> </p>
-</div>
-<div id="demonstrations" class="section level2">
-<h2>Demonstrations</h2>
-<p>Packages may also include extended code demonstrations (‘demos’). To
-list demos in a package run <code>demo("package name")</code>:</p>
-<pre class="r numberLines lineAnchors"><code>demo(package = &quot;stats&quot;)
-
-# call demo directly
-demo(&quot;nlm&quot;)</code></pre>
+<p>They should also be listed in the package’s CRAN page.</p>
 <p> </p>
 <div class="alert alert-info">
 <p><font size="5">Exercise</font></p>

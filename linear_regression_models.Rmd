@@ -78,6 +78,22 @@ knitr::opts_chunk$set(
 klippy::klippy(position = c('top', 'right'))
 ```
 
+&nbsp;
+
+<div class="alert alert-info">
+
+# Purpose
+
+&nbsp;
+
+- Understand statistical inference through a single modelling tool (broad sense linear models)
+
+- Get familiar with building linear models
+ 
+- Extent linear models to different data structures
+
+</div>
+
 &nbsp; 
 
 # Linear models as a unifying framework
@@ -101,27 +117,11 @@ However, most of those common statistical models are just special cases of linea
 
 - Linear models are **applied across statistical paradigms** (e.g. frequentist, bayesian)
 
-&nbsp;
-
-<div class="alert alert-info">
-
-# Purpose
-
-&nbsp;
-
-- Understand statistical inference through a single modelling tool (broad sense linear models)
-
-- Get familiar with building linear models
- 
-- Extent linear models to different data structures
-
-</div>
-
 &nbsp; 
 
 <div class="alert alert-warning">
 
-# Workshop overview
+# Tutorial overview
 
 - [How to simulate data](#how-to-simulate-data) 
 
@@ -129,13 +129,9 @@ However, most of those common statistical models are just special cases of linea
 
 - [Linear regression basic structure (in R)](#linear-regression-in-r)
 
-- [Use simulated data to understand linear models](#use-simulated-data-to-understand-linear-models)
-
-- [Common statistical tests as special cases of linear regression](#common-statistical-tests-as-special-cases-of-linear-regression)
+- [Use simulated data to understand linear models](#how-to-use-simulated-data-to-understand-the-behavior-of-statistical-tools)
 
 - [Extending the linear models to more complex data structures](#extending-the-linear-models-to-more-complex-data-structures)
-
-- [Additional resources](#additional-resources)
 
 </div>
 

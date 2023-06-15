@@ -485,6 +485,17 @@ pre.numberSource code
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
 <p> </p>
+<div id="purpose" class="section level1 alert alert-info">
+<h1>Purpose</h1>
+<p> </p>
+<ul>
+<li><p>Understand statistical inference through a single modelling tool
+(broad sense linear models)</p></li>
+<li><p>Get familiar with building linear models</p></li>
+<li><p>Extent linear models to different data structures</p></li>
+</ul>
+</div>
+<p> </p>
 <div id="linear-models-as-a-unifying-framework" class="section level1">
 <h1>Linear models as a unifying framework</h1>
 <p>Traditionally, statistical models have been taught as disconnected
@@ -510,19 +521,8 @@ paradigms</strong> (e.g. frequentist, bayesian)</p></li>
 </ul>
 <p> </p>
 </div>
-<div id="purpose" class="section level1 alert alert-info">
-<h1>Purpose</h1>
-<p> </p>
-<ul>
-<li><p>Understand statistical inference through a single modelling tool
-(broad sense linear models)</p></li>
-<li><p>Get familiar with building linear models</p></li>
-<li><p>Extent linear models to different data structures</p></li>
-</ul>
-</div>
-<p> </p>
-<div id="workshop-overview" class="section level1 alert alert-warning">
-<h1>Workshop overview</h1>
+<div id="tutorial-overview" class="section level1 alert alert-warning">
+<h1>Tutorial overview</h1>
 <ul>
 <li><p><a href="#how-to-simulate-data">How to simulate data</a></p></li>
 <li><p><a
@@ -531,15 +531,12 @@ to use simulated data to understand the behavior of statistical
 tools</a></p></li>
 <li><p><a href="#linear-regression-in-r">Linear regression basic
 structure (in R)</a></p></li>
-<li><p><a href="#use-simulated-data-to-understand-linear-models">Use
-simulated data to understand linear models</a></p></li>
 <li><p><a
-href="#common-statistical-tests-as-special-cases-of-linear-regression">Common
-statistical tests as special cases of linear regression</a></p></li>
+href="#how-to-use-simulated-data-to-understand-the-behavior-of-statistical-tools">Use
+simulated data to understand linear models</a></p></li>
 <li><p><a
 href="#extending-the-linear-models-to-more-complex-data-structures">Extending
 the linear models to more complex data structures</a></p></li>
-<li><p><a href="#additional-resources">Additional resources</a></p></li>
 </ul>
 </div>
 <p> </p>
@@ -587,21 +584,23 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 (<code>n = 100</code>):</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>unif_var</span></code></pre></div>
-<pre><code>##   [1] 9.889093 3.977455 1.156978 0.697487 2.437494 7.920104 3.400624
-##   [8] 9.720625 1.658555 4.591037 1.717481 2.314771 7.728119 0.963015
-##  [15] 4.534478 0.847007 5.606659 0.087046 9.857371 3.165848 6.394489
-##  [22] 2.952232 9.967037 9.060213 9.887391 0.656457 6.270388 4.904750
-##  [29] 9.710244 3.622208 6.799935 2.637199 1.857143 1.851432 3.792967
-##  [36] 8.470244 4.980761 7.905856 8.384639 4.569039 7.994758 3.819431
-##  [43] 7.597012 4.367756 9.042177 3.195349 0.825691 8.162891 8.984762
-##  [50] 9.664964 5.730689 7.200795 7.740586 6.277608 7.229893 3.868313
-##  [57] 1.627908 1.872283 3.912495 2.739012 1.919177 5.043918 7.638404
-##  [64] 6.936689 5.440542 6.590872 4.687284 4.818055 3.370636 4.245263
-##  [71] 2.870151 6.011915 8.407423 6.208370 1.345516 5.677224 4.434263
-##  [78] 4.379754 6.236172 9.326533 8.884926 8.785406 2.421769 7.414538
-##  [85] 3.876563 0.789517 0.948356 7.621427 3.478940 4.167667 3.440162
-##  [92] 0.084109 9.115750 1.822054 7.228034 5.719633 5.400364 3.549474
-##  [99] 8.240918 1.861368</code></pre>
+<pre><code>##   [1] 9.88909298 3.97745453 1.15697779 0.69748679 2.43749391 7.92010426
+##   [7] 3.40062353 9.72062501 1.65855485 4.59103666 1.71748077 2.31477102
+##  [13] 7.72811946 0.96301542 4.53447770 0.84700713 5.60665867 0.08704600
+##  [19] 9.85737091 3.16584804 6.39448942 2.95223235 9.96703694 9.06021320
+##  [25] 9.88739144 0.65645739 6.27038758 4.90475041 9.71024413 3.62220848
+##  [31] 6.79993461 2.63719930 1.85714261 1.85143222 3.79296747 8.47024392
+##  [37] 4.98076133 7.90585574 8.38463872 4.56903865 7.99475815 3.81943061
+##  [43] 7.59701231 4.36775602 9.04217721 3.19534914 0.82569093 8.16289079
+##  [49] 8.98476221 9.66496398 5.73068883 7.20079497 7.74058624 6.27760801
+##  [55] 7.22989341 3.86831279 1.62790778 1.87228283 3.91249474 2.73901210
+##  [61] 1.91917748 5.04391806 7.63840357 6.93668871 5.44054188 6.59087226
+##  [67] 4.68728380 4.81805539 3.37063598 4.24526302 2.87015131 6.01191532
+##  [73] 8.40742326 6.20837048 1.34551619 5.67722430 4.43426331 4.37975423
+##  [79] 6.23617233 9.32653342 8.88492583 8.78540561 2.42176948 7.41453797
+##  [85] 3.87656313 0.78951739 0.94835550 7.62142731 3.47894026 4.16766709
+##  [91] 3.44016231 0.08410923 9.11574991 1.82205419 7.22803449 5.71963331
+##  [97] 5.40036414 3.54947415 8.24091838 1.86136761</code></pre>
 <p>We can explore the output by plotting a histogram:</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># create histogram</span></span>
@@ -631,7 +630,7 @@ discrete variables (i.e. integer numbers) simply by rounding them:</p>
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>v1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
 <span id="cb7-3"><a href="#cb7-3"></a>v1</span></code></pre></div>
-<pre><code>## [1] 15.4269  8.5450 15.1387  8.9203  9.3693</code></pre>
+<pre><code>## [1] 15.426886  8.544965 15.138700  8.920290  9.369333</code></pre>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">round</span>(<span class="at">x =</span> v1, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
 <pre><code>## [1] 15  9 15  9  9</code></pre>
@@ -673,15 +672,15 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <span id="cb15-2"><a href="#cb15-2"></a>binom_var <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
 <span id="cb15-3"><a href="#cb15-3"></a></span>
 <span id="cb15-4"><a href="#cb15-4"></a>binom_var</span></code></pre></div>
-<pre><code>##  [1] 1 0 0 1 1 0 0 0 0 0 0 0 1 1 1 0 0 1 0 1 0 0 0 0 0 0 0 1 0 1 1 1
-## [33] 0 0 0 1 0 0 1 1 0 0 0 0 0 1 0 1 1 1</code></pre>
+<pre><code>##  [1] 1 0 0 1 1 0 0 0 0 0 0 0 1 1 1 0 0 1 0 1 0 0 0 0 0 0 0 1 0 1 1 1 0 0 0 1 0 0
+## [39] 1 1 0 0 0 0 0 1 0 1 1 1</code></pre>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>categ_var <span class="ot">&lt;-</span> <span class="fu">factor</span>(binom_var, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,</span>
 <span id="cb17-2"><a href="#cb17-2"></a>    <span class="st">&quot;b&quot;</span>))</span>
 <span id="cb17-3"><a href="#cb17-3"></a></span>
 <span id="cb17-4"><a href="#cb17-4"></a>categ_var</span></code></pre></div>
-<pre><code>##  [1] b a a b b a a a a a a a b b b a a b a b a a a a a a a b a b b b
-## [33] a a a b a a b b a a a a a b a b b b
+<pre><code>##  [1] b a a b b a a a a a a a b b b a a b a b a a a a a a a b a b b b a a a b a a
+## [39] b b a a a a a b a b b b
 ## Levels: a b</code></pre>
 <p> </p>
 </div>
@@ -693,8 +692,8 @@ specific sizes from vectors. For instance, take the example vector
 <code>letters</code>:</p>
 <div class="sourceCode" id="cb19"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>letters</span></code></pre></div>
-<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot;
-## [17] &quot;q&quot; &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;
+## [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
 <p> </p>
 <p>We can take a sample of this vector like is:</p>
 <div class="sourceCode" id="cb21"><pre
@@ -713,8 +712,8 @@ replacement can be applied by setting the argument
 <code>replace = TRUE</code>:</p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">sample</span>(<span class="at">x =</span> letters, <span class="at">size =</span> <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##  [1] &quot;j&quot; &quot;i&quot; &quot;h&quot; &quot;i&quot; &quot;k&quot; &quot;u&quot; &quot;n&quot; &quot;i&quot; &quot;w&quot; &quot;k&quot; &quot;c&quot; &quot;t&quot; &quot;m&quot; &quot;p&quot; &quot;i&quot; &quot;h&quot;
-## [17] &quot;d&quot; &quot;w&quot; &quot;c&quot; &quot;q&quot; &quot;j&quot; &quot;e&quot; &quot;e&quot; &quot;j&quot; &quot;k&quot; &quot;c&quot; &quot;l&quot; &quot;t&quot; &quot;r&quot; &quot;h&quot;</code></pre>
+<pre><code>##  [1] &quot;j&quot; &quot;i&quot; &quot;h&quot; &quot;i&quot; &quot;k&quot; &quot;u&quot; &quot;n&quot; &quot;i&quot; &quot;w&quot; &quot;k&quot; &quot;c&quot; &quot;t&quot; &quot;m&quot; &quot;p&quot; &quot;i&quot; &quot;h&quot; &quot;d&quot; &quot;w&quot; &quot;c&quot;
+## [20] &quot;q&quot; &quot;j&quot; &quot;e&quot; &quot;e&quot; &quot;j&quot; &quot;k&quot; &quot;c&quot; &quot;l&quot; &quot;t&quot; &quot;r&quot; &quot;h&quot;</code></pre>
 <p> </p>
 </div>
 <div id="iterating-a-process" class="section level2">
@@ -732,13 +731,13 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>repl_rnorm</span></code></pre></div>
 <pre><code>## [[1]]
-## [1]  1.19184 -0.33992
+## [1]  1.1918356 -0.3399238
 ## 
 ## [[2]]
-## [1]  0.78911 -0.63213
+## [1]  0.7891082 -0.6321324
 ## 
 ## [[3]]
-## [1] -1.49312 -0.13441</code></pre>
+## [1] -1.4931226 -0.1344123</code></pre>
 <p> </p>
 </div>
 <div id="making-simulations-reproducible" class="section level2">
@@ -753,7 +752,7 @@ should get the same output:</p>
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
 <span id="cb31-2"><a href="#cb31-2"></a></span>
 <span id="cb31-3"><a href="#cb31-3"></a><span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## [1] 0.50748 0.30677</code></pre>
+<pre><code>## [1] 0.5074782 0.3067685</code></pre>
 <hr />
 </div>
 </div>
@@ -885,7 +884,7 @@ A
 4.6363
 </td>
 <td style="text-align:center;">
-109.874
+109.8744
 </td>
 </tr>
 <tr>
@@ -899,7 +898,7 @@ B
 3.3733
 </td>
 <td style="text-align:center;">
-107.414
+107.4139
 </td>
 </tr>
 <tr>
@@ -913,7 +912,7 @@ C
 4.7435
 </td>
 <td style="text-align:center;">
-100.894
+100.8935
 </td>
 </tr>
 <tr>
@@ -927,7 +926,7 @@ D
 6.1018
 </td>
 <td style="text-align:center;">
-90.451
+90.4506
 </td>
 </tr>
 <tr>
@@ -941,7 +940,7 @@ E
 5.7558
 </td>
 <td style="text-align:center;">
-98.049
+98.0485
 </td>
 </tr>
 <tr>
@@ -955,7 +954,7 @@ F
 4.7618
 </td>
 <td style="text-align:center;">
-109.255
+109.2552
 </td>
 </tr>
 </tbody>
@@ -1001,10 +1000,11 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p>We can take random samples using <code>sample()</code> like this:</p>
 <div class="sourceCode" id="cb36"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">sample</span>(<span class="at">x =</span> unif_pop, <span class="at">size =</span> <span class="dv">30</span>)</span></code></pre></div>
-<pre><code>##  [1] 9.28420 1.02626 2.57517 3.32485 6.89990 2.29404 0.33737 8.21366
-##  [9] 3.30364 8.03793 2.59174 7.81770 5.65426 0.63831 2.83470 4.20434
-## [17] 4.76330 4.42193 6.97830 7.92625 0.68121 3.52323 6.51103 5.38289
-## [25] 7.97210 1.80062 4.21282 3.33866 8.91223 4.71163</code></pre>
+<pre><code>##  [1] 9.2841984 1.0262565 2.5751741 3.3248460 6.8998985 2.2940436 0.3373657
+##  [8] 8.2136568 3.3036362 8.0379320 2.5917392 7.8177006 5.6542576 0.6383126
+## [15] 2.8347032 4.2043442 4.7632983 4.4219338 6.9782974 7.9262477 0.6812050
+## [22] 3.5232307 6.5110308 5.3828892 7.9721010 1.8006177 4.2128214 3.3386579
+## [29] 8.9122284 4.7116278</code></pre>
 <p> </p>
 <p>This process can be replicated several times with
 <code>replicate()</code>:</p>
@@ -1023,13 +1023,13 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p>… as well as the mean:</p>
 <div class="sourceCode" id="cb40"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">mean</span>(samples)</span></code></pre></div>
-<pre><code>## [1] 5.0212</code></pre>
+<pre><code>## [1] 5.021219</code></pre>
 <p> </p>
 <p>As expected, the samples follows a normal distribution with a mean
 close to the mean of the population, which is:</p>
 <div class="sourceCode" id="cb42"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">mean</span>(unif_pop)</span></code></pre></div>
-<pre><code>## [1] 5.0527</code></pre>
+<pre><code>## [1] 5.052715</code></pre>
 <p> </p>
 <p>Let’s try with a more complex distribution. For instance, a bimodal
 distribution:</p>
@@ -1058,10 +1058,10 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><img src="linear_regression_models_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <div class="sourceCode" id="cb46"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">mean</span>(samples)</span></code></pre></div>
-<pre><code>## [1] 15.231</code></pre>
+<pre><code>## [1] 15.23058</code></pre>
 <div class="sourceCode" id="cb48"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">mean</span>(bimod_pop)</span></code></pre></div>
-<pre><code>## [1] 15.088</code></pre>
+<pre><code>## [1] 15.08789</code></pre>
 <p> </p>
 <div class="alert alert-info">
 <p><font size="5">Exercise</font></p>
@@ -1243,19 +1243,19 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = Height ~ Girth, data = trees)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -12.582  -2.769   0.316   2.473   9.946 
+##      Min       1Q   Median       3Q      Max 
+## -12.5816  -2.7686   0.3163   2.4728   9.9456 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   62.031      4.383   14.15  1.5e-14 ***
-## Girth          1.054      0.322    3.27   0.0028 ** 
+## (Intercept)  62.0313     4.3833  14.152 1.49e-14 ***
+## Girth         1.0544     0.3222   3.272  0.00276 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 5.54 on 29 degrees of freedom
-## Multiple R-squared:  0.27,   Adjusted R-squared:  0.244 
-## F-statistic: 10.7 on 1 and 29 DF,  p-value: 0.00276</code></pre>
+## Residual standard error: 5.538 on 29 degrees of freedom
+## Multiple R-squared:  0.2697, Adjusted R-squared:  0.2445 
+## F-statistic: 10.71 on 1 and 29 DF,  p-value: 0.002758</code></pre>
 <p> </p>
 <p>This is what the elements of the output mean:</p>
 <ul>
@@ -1333,14 +1333,14 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = y ~ 1, data = y_data)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -2.001 -0.594 -0.107  0.664  2.135 
+##     Min      1Q  Median      3Q     Max 
+## -2.0010 -0.5937 -0.1070  0.6638  2.1345 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)   0.0344     0.1309    0.26     0.79
+## (Intercept)   0.0344     0.1309   0.263    0.794
 ## 
-## Residual standard error: 0.926 on 49 degrees of freedom</code></pre>
+## Residual standard error: 0.9259 on 49 degrees of freedom</code></pre>
 <p> </p>
 <p>It can be quite informative to plot the effect sizes (although in
 this case we just have one):</p>
@@ -1361,21 +1361,21 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p> </p>
 <p>For assessing the significance of the association we focus on the
 coefficients table:</p>
-<pre><code>##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept) 0.034404    0.13094 0.26275  0.79385</code></pre>
+<pre><code>##               Estimate Std. Error   t value Pr(&gt;|t|)
+## (Intercept) 0.03440355  0.1309378 0.2627473 0.793847</code></pre>
 <ul>
 <li><p>In this example there are no predictors in the model so we only
 got an estimate for the intercept (<span
 class="math inline">\(\beta_0\)</span>)</p></li>
-<li><p>The model tell us that the intercept is estimated at 0.0344 and
-that this value is not significantly different from 0 (p-value =
-0.79385)</p></li>
+<li><p>The model tell us that the intercept is estimated at 0.0344035
+and that this value is not significantly different from 0 (p-value =
+0.793847)</p></li>
 <li><p>In this case the intercept is simply the mean of the response
 variable</p></li>
 </ul>
 <div class="sourceCode" id="cb59"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">mean</span>(y_data<span class="sc">$</span>y)</span></code></pre></div>
-<pre><code>## [1] 0.034404</code></pre>
+<pre><code>## [1] 0.03440355</code></pre>
 <p> </p>
 <ul>
 <li>We seldom have predictions about the intercept so we tend to ignore
@@ -1455,17 +1455,17 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = y ~ x1, data = xy_data)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -2.004 -0.624 -0.123  0.687  2.106 
+##     Min      1Q  Median      3Q     Max 
+## -2.0044 -0.6239 -0.1233  0.6868  2.1061 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)   0.0398     0.1340    0.30     0.77
-## x1           -0.0367     0.1475   -0.25     0.80
+## (Intercept)  0.03977    0.13396   0.297    0.768
+## x1          -0.03668    0.14750  -0.249    0.805
 ## 
-## Residual standard error: 0.935 on 48 degrees of freedom
-## Multiple R-squared:  0.00129,    Adjusted R-squared:  -0.0195 
-## F-statistic: 0.0618 on 1 and 48 DF,  p-value: 0.805</code></pre>
+## Residual standard error: 0.9349 on 48 degrees of freedom
+## Multiple R-squared:  0.001287,   Adjusted R-squared:  -0.01952 
+## F-statistic: 0.06184 on 1 and 48 DF,  p-value: 0.8047</code></pre>
 <p> </p>
 <p>… and plot the effect sizes:</p>
 <div class="sourceCode" id="cb65"><pre
@@ -1499,15 +1499,16 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><font size="5"><b>Model interpretation</b></font></p>
 <p> </p>
 <p>Coefficients table:</p>
-<pre><code>##              Estimate Std. Error  t value Pr(&gt;|t|)
-## (Intercept)  0.039774    0.13396  0.29690  0.76782
-## x1          -0.036679    0.14750 -0.24867  0.80467</code></pre>
+<pre><code>##                Estimate Std. Error    t value  Pr(&gt;|t|)
+## (Intercept)  0.03977364  0.1339616  0.2969033 0.7678214
+## x1          -0.03667889  0.1474982 -0.2486735 0.8046743</code></pre>
 <p> </p>
 <ul>
 <li><p>In this example we added one predictor to the model so we got an
 additional estimate (and extra row, ‘x1’)</p></li>
-<li><p>The model tell us that the estimate of ‘x1’ is -0.03668 and that
-it is not significantly different from 0 (p-value = 0.80467)</p></li>
+<li><p>The model tell us that the estimate of ‘x1’ is -0.0366789 and
+that it is not significantly different from 0 (p-value =
+0.8046743)</p></li>
 </ul>
 </div>
 <hr />
@@ -1558,19 +1559,19 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = y ~ x1, data = xy_data2)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-##  -6.01  -1.87  -0.37   2.06   6.32 
+##     Min      1Q  Median      3Q     Max 
+## -6.0133 -1.8718 -0.3698  2.0604  6.3185 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   -3.881      0.402   -9.66  7.9e-13 ***
-## x1             2.890      0.442    6.53  3.9e-08 ***
+## (Intercept)  -3.8807     0.4019  -9.656 7.86e-13 ***
+## x1            2.8900     0.4425   6.531 3.85e-08 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.8 on 48 degrees of freedom
-## Multiple R-squared:  0.471,  Adjusted R-squared:  0.459 
-## F-statistic: 42.7 on 1 and 48 DF,  p-value: 3.85e-08</code></pre>
+## Residual standard error: 2.805 on 48 degrees of freedom
+## Multiple R-squared:  0.4705, Adjusted R-squared:  0.4595 
+## F-statistic: 42.65 on 1 and 48 DF,  p-value: 3.854e-08</code></pre>
 <p> </p>
 <p>.. the effect size plot:</p>
 <div class="sourceCode" id="cb75"><pre
@@ -1601,14 +1602,14 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><font size="5"><b>Model interpretation</b></font></p>
 <p> </p>
 <p>Coefficients table:</p>
-<pre><code>##             Estimate Std. Error t value   Pr(&gt;|t|)
-## (Intercept)  -3.8807    0.40188 -9.6562 7.8616e-13
-## x1            2.8900    0.44249  6.5311 3.8537e-08</code></pre>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) -3.880679  0.4018848 -9.656198 7.861629e-13
+## x1           2.889963  0.4424946  6.531071 3.853652e-08</code></pre>
 <ul>
 <li><p>The model tells us that <span
 class="math inline">\(\beta_1\)</span> (the effect size of ‘x1’) is
-2.88996 and that it is significantly different from 0 (p-value =
-3.85365^{-8})</p></li>
+2.8899633 and that it is significantly different from 0 (p-value =
+3.8536524^{-8})</p></li>
 <li><p>The simulated values for the regression parameters can be
 compared to the summary of the <code>lm()</code> model to get a sense of
 the model precision:</p>
@@ -1698,20 +1699,20 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = y ~ x1 + x2, data = xy_data_multp)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -5.986 -1.893 -0.363  2.002  6.413 
+##     Min      1Q  Median      3Q     Max 
+## -5.9861 -1.8931 -0.3633  2.0017  6.4127 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   -3.865      0.417   -9.27  3.5e-12 ***
-## x1             2.901      0.453    6.41  6.4e-08 ***
-## x2            -1.932      0.414   -4.67  2.6e-05 ***
+## (Intercept)  -3.8652     0.4169  -9.270 3.49e-12 ***
+## x1            2.9015     0.4526   6.411 6.41e-08 ***
+## x2           -1.9324     0.4142  -4.665 2.59e-05 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.83 on 47 degrees of freedom
-## Multiple R-squared:  0.612,  Adjusted R-squared:  0.595 
-## F-statistic:   37 on 2 and 47 DF,  p-value: 2.23e-10</code></pre>
+## Residual standard error: 2.833 on 47 degrees of freedom
+## Multiple R-squared:  0.6116, Adjusted R-squared:  0.595 
+## F-statistic:    37 on 2 and 47 DF,  p-value: 2.234e-10</code></pre>
 <p> </p>
 <p>… plot the effect sizes:</p>
 <div class="sourceCode" id="cb83"><pre
@@ -1742,18 +1743,18 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><font size="5"><b>Model interpretation</b></font></p>
 <p> </p>
 <p>Coefficients table:</p>
-<pre><code>##             Estimate Std. Error t value   Pr(&gt;|t|)
-## (Intercept)  -3.8652    0.41695 -9.2702 3.4856e-12
-## x1            2.9015    0.45260  6.4108 6.4137e-08
-## x2           -1.9324    0.41422 -4.6650 2.5851e-05</code></pre>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) -3.865192  0.4169493 -9.270172 3.485630e-12
+## x1           2.901499  0.4525965  6.410785 6.413676e-08
+## x2          -1.932353  0.4142204 -4.665035 2.585128e-05</code></pre>
 <ul>
 <li><p>The model found that <span class="math inline">\(\beta_1\)</span>
-(the effect size of ‘x1’) is 2.9015 and that it is significantly
-different from 0 (p-value = 6.41368^{-8})</p></li>
+(the effect size of ‘x1’) is 2.9014993 and that it is significantly
+different from 0 (p-value = 6.4136764^{-8})</p></li>
 <li><p>It also found that the <span
 class="math inline">\(\beta_2\)</span> (the effect size of ‘x2’) is
--1.93235 and that it is also significantly different from 0 (p-value =
-2.58513^{-5})</p></li>
+-1.9323526 and that it is also significantly different from 0 (p-value =
+2.5851282^{-5})</p></li>
 <li><p>The simulated values for the regression parameters can be
 compared to the summary of the <code>lm()</code> model to get a sense of
 the model precision:</p>
@@ -1812,15 +1813,15 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <span id="cb89-5"><a href="#cb89-5"></a><span class="co"># shortcut to coefficients</span></span>
 <span id="cb89-6"><a href="#cb89-6"></a><span class="fu">coef</span>(xy_mod)</span></code></pre></div>
 <pre><code>## (Intercept)          x1 
-##    0.039774   -0.036679</code></pre>
+##  0.03977364 -0.03667889</code></pre>
 <div class="sourceCode" id="cb91"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a><span class="fu">coef</span>(x1y_mod)</span></code></pre></div>
 <pre><code>## (Intercept)          x1 
-##    0.039774   -0.036679</code></pre>
+##  0.03977364 -0.03667889</code></pre>
 <div class="sourceCode" id="cb93"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="fu">coef</span>(x2y_mod)</span></code></pre></div>
 <pre><code>## (Intercept)          x2 
-##    0.041320    0.027239</code></pre>
+##  0.04131955  0.02723902</code></pre>
 <p> </p>
 <p>The estimates for the same variables vary considerably between the
 multiple regression and the single predictor regressions.</p>
@@ -1854,14 +1855,14 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <span id="cb95-23"><a href="#cb95-23"></a><span class="co"># shortcut to coefficients</span></span>
 <span id="cb95-24"><a href="#cb95-24"></a><span class="fu">coef</span>(xy_mod)</span></code></pre></div>
 <pre><code>## (Intercept)          x1          x2 
-##   -3.955064    2.967166    0.022549</code></pre>
+## -3.95506411  2.96716643  0.02254914</code></pre>
 <div class="sourceCode" id="cb97"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a><span class="fu">coef</span>(x1y_mod)</span></code></pre></div>
 <pre><code>## (Intercept)          x1 
-##     -3.9602      2.9633</code></pre>
+##   -3.960226    2.963321</code></pre>
 <p>The estimate for <span class="math inline">\(\beta_1\)</span> was
-almost the same in the multiple regression (2.96717) and the single
-predictor regression (2.96332)</p>
+almost the same in the multiple regression (2.9671664) and the single
+predictor regression (2.9633211)</p>
 <p>For convenience we used <code>coef()</code> to extract only the
 estimates from the regression, but the values are the same we get with
 <code>summary(model)</code>.</p>
@@ -1998,19 +1999,19 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = y ~ x1, data = xy_data_cat)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -5.898 -1.909 -0.094  1.809  5.506 
+##     Min      1Q  Median      3Q     Max 
+## -5.8977 -1.9092 -0.0936  1.8090  5.5059 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   -2.997      0.558   -5.37  2.3e-06 ***
-## x1b            1.814      0.842    2.16    0.036 *  
+## (Intercept)  -2.9974     0.5583  -5.369 2.27e-06 ***
+## x1b           1.8140     0.8416   2.155   0.0362 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.95 on 48 degrees of freedom
-## Multiple R-squared:  0.0882, Adjusted R-squared:  0.0693 
-## F-statistic: 4.65 on 1 and 48 DF,  p-value: 0.0362</code></pre>
+## Residual standard error: 2.954 on 48 degrees of freedom
+## Multiple R-squared:  0.08825,    Adjusted R-squared:  0.06925 
+## F-statistic: 4.646 on 1 and 48 DF,  p-value: 0.03617</code></pre>
 <p> </p>
 <p>… plot the effect sizes:</p>
 <div class="sourceCode" id="cb103"><pre
@@ -2034,13 +2035,13 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><font size="5"><b>Model interpretation</b></font></p>
 <p> </p>
 <p>Coefficients table:</p>
-<pre><code>##             Estimate Std. Error t value   Pr(&gt;|t|)
-## (Intercept)  -2.9974    0.55825 -5.3693 2.2677e-06
-## x1b           1.8140    0.84160  2.1554 3.6172e-02</code></pre>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) -2.997415  0.5582513 -5.369293 2.267724e-06
+## x1b          1.813997  0.8415955  2.155426 3.617227e-02</code></pre>
 <ul>
 <li><p>The model found that <span class="math inline">\(\beta_1\)</span>
-(the effect size of ‘x1’) is 1.814 and that it is significantly
-different from 0 (p-value = 0.03617)</p></li>
+(the effect size of ‘x1’) is 1.8139973 and that it is significantly
+different from 0 (p-value = 0.0361723)</p></li>
 <li><p>The simulated values for the regression parameters can be
 compared to the summary of the <code>lm()</code> model to get a sense of
 the model precision:</p>
@@ -2064,7 +2065,7 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 </ul>
 <div class="sourceCode" id="cb107"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a><span class="fu">mean</span>(xy_data_cat<span class="sc">$</span>y[xy_data_cat<span class="sc">$</span>x1 <span class="sc">==</span> <span class="st">&quot;a&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] -2.9974</code></pre>
+<pre><code>## [1] -2.997415</code></pre>
 <ul>
 <li>Note also that the estimate label is ‘x1b’, not ‘x1’ as in the
 continuous predictors. This is because in this case the estimate refers
@@ -2203,18 +2204,18 @@ get the exact same results:</p>
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1"></a><span class="co"># summary model with categorical</span></span>
 <span id="cb110-2"><a href="#cb110-2"></a><span class="co"># variable</span></span>
 <span id="cb110-3"><a href="#cb110-3"></a><span class="fu">summary</span>(xy_mod_cat)<span class="sc">$</span>coefficients</span></code></pre></div>
-<pre><code>##             Estimate Std. Error t value   Pr(&gt;|t|)
-## (Intercept)  -2.9974    0.55825 -5.3693 2.2677e-06
-## x1b           1.8140    0.84160  2.1554 3.6172e-02</code></pre>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) -2.997415  0.5582513 -5.369293 2.267724e-06
+## x1b          1.813997  0.8415955  2.155426 3.617227e-02</code></pre>
 <div class="sourceCode" id="cb112"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1"></a><span class="co"># build model with dummy variable</span></span>
 <span id="cb112-2"><a href="#cb112-2"></a>xy_mod_num <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> x1_num, <span class="at">data =</span> xy_data_cat)</span>
 <span id="cb112-3"><a href="#cb112-3"></a></span>
 <span id="cb112-4"><a href="#cb112-4"></a><span class="co"># summary with dummy coding</span></span>
 <span id="cb112-5"><a href="#cb112-5"></a><span class="fu">summary</span>(xy_mod_num)<span class="sc">$</span>coefficients</span></code></pre></div>
-<pre><code>##             Estimate Std. Error t value   Pr(&gt;|t|)
-## (Intercept)  -2.9974    0.55825 -5.3693 2.2677e-06
-## x1_num        1.8140    0.84160  2.1554 3.6172e-02</code></pre>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) -2.997415  0.5582513 -5.369293 2.267724e-06
+## x1_num       1.813997  0.8415955  2.155426 3.617227e-02</code></pre>
 <p> </p>
 <p>Things get a bit more complicated when dummy coding a categorical
 predictor with more than two levels. But the logic is the same.</p>
@@ -2356,21 +2357,21 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = y ~ x1 + x2 + x1 * x2, data = xy_data_intr)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -6.222 -1.664 -0.158  1.650  6.383 
+##     Min      1Q  Median      3Q     Max 
+## -6.2220 -1.6639 -0.1575  1.6503  6.3832 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   -4.193      0.570   -7.35  2.7e-09 ***
-## x1b            3.597      0.806    4.46  5.2e-05 ***
-## x2             1.327      0.682    1.95   0.0576 .  
-## x1b:x2        -2.972      0.962   -3.09   0.0034 ** 
+## (Intercept)  -4.1930     0.5702  -7.353 2.70e-09 ***
+## x1b           3.5974     0.8061   4.463 5.19e-05 ***
+## x2            1.3274     0.6816   1.947  0.05761 .  
+## x1b:x2       -2.9720     0.9623  -3.089  0.00341 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.83 on 46 degrees of freedom
-## Multiple R-squared:  0.396,  Adjusted R-squared:  0.357 
-## F-statistic:   10 on 3 and 46 DF,  p-value: 3.29e-05</code></pre>
+## Residual standard error: 2.828 on 46 degrees of freedom
+## Multiple R-squared:  0.3959, Adjusted R-squared:  0.3565 
+## F-statistic: 10.05 on 3 and 46 DF,  p-value: 3.291e-05</code></pre>
 <p>It also helps to plot the data (don’t worry too much about all the
 code):</p>
 <div class="sourceCode" id="cb117"><pre
@@ -2412,24 +2413,24 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><font size="5"><b>Model interpretation</b></font></p>
 <p> </p>
 <p>Coefficients table:</p>
-<pre><code>##             Estimate Std. Error t value   Pr(&gt;|t|)
-## (Intercept)  -4.1930    0.57023 -7.3532 2.6978e-09
-## x1b           3.5974    0.80607  4.4629 5.1950e-05
-## x2            1.3274    0.68161  1.9474 5.7610e-02
-## x1b:x2       -2.9720    0.96227 -3.0885 3.4061e-03</code></pre>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) -4.193018  0.5702328 -7.353168 2.697816e-09
+## x1b          3.597411  0.8060688  4.462908 5.194964e-05
+## x2           1.327353  0.6816129  1.947370 5.760963e-02
+## x1b:x2      -2.971961  0.9622652 -3.088505 3.406062e-03</code></pre>
 <ul>
 <li><p>The model found that <span class="math inline">\(\beta_1\)</span>
-(the effect size of ‘x1-b’ to ‘x1-a’) is 3.59741 and that it is
-significantly different from 0 (p-value = 5.19496^{-5})</p></li>
+(the effect size of ‘x1-b’ to ‘x1-a’) is 3.5974112 and that it is
+significantly different from 0 (p-value = 5.1949639^{-5})</p></li>
 <li><p>The model found that <span class="math inline">\(\beta_2\)</span>
-(the effect size of ‘x2’) is 1.32735 and that it is significantly
-different from 0 (p-value = 0.05761). This is actually the slope of the
-relation between x2 and y when x1 = ‘a’</p></li>
+(the effect size of ‘x2’) is 1.3273528 and that it is significantly
+different from 0 (p-value = 0.0576096). This is actually the slope of
+the relation between x2 and y when x1 = ‘a’</p></li>
 <li><p>The model found that <span class="math inline">\(\beta_3\)</span>
-(the effect size of the interaction term ‘x1 * x2’) is -2.97196 and that
-it is significantly different from 0 (p-value = 0.00341). This is the
-difference between the slopes of x2 <em>vs</em> y when x1 = ‘a’ and x2
-<em>vs</em> y when x1 = ‘b’.</p></li>
+(the effect size of the interaction term ‘x1 * x2’) is -2.9719608 and
+that it is significantly different from 0 (p-value = 0.0034061). This is
+the difference between the slopes of x2 <em>vs</em> y when x1 = ‘a’ and
+x2 <em>vs</em> y when x1 = ‘b’.</p></li>
 <li><p>The simulated values for the regression parameters can be
 compared to the summary of the <code>lm()</code> model to get a sense of
 the model precision:</p>
@@ -2501,7 +2502,7 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <span id="cb125-16"><a href="#cb125-16"></a>x2 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">0.3</span>)</span>
 <span id="cb125-17"><a href="#cb125-17"></a></span>
 <span id="cb125-18"><a href="#cb125-18"></a><span class="fu">cor</span>(x1, x2)</span></code></pre></div>
-<pre><code>## [1] 0.94642</code></pre>
+<pre><code>## [1] 0.9464161</code></pre>
 <ul>
 <li><p>Build a multiple regression model for this data (y ~ x1 + x2).
 You can use the same code as in the section <a
@@ -2669,10 +2670,10 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## 0.00e+00  0.00e+00  0.00e+00  0.00e+00  2.98e-08  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) 1.20e+00   1.29e-01    9.31  &lt; 2e-16 ***
-## x1          1.30e+00   2.20e-01    5.92  3.2e-09 ***
-## x2          1.22e-16   1.90e-01    0.00        1    
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) 1.200e+00  1.289e-01   9.311  &lt; 2e-16 ***
+## x1          1.300e+00  2.196e-01   5.920 3.22e-09 ***
+## x2          1.225e-16  1.902e-01   0.000        1    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -2680,7 +2681,7 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## 
 ##     Null deviance:  3.9471e+01  on 49  degrees of freedom
 ## Residual deviance: -5.9952e-15  on 47  degrees of freedom
-## AIC: 186.9
+## AIC: 186.89
 ## 
 ## Number of Fisher Scoring iterations: 3</code></pre>
 <p> </p>
@@ -2690,21 +2691,22 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><font size="5"><b>Model interpretation</b></font></p>
 <p> </p>
 <p>Coefficients table:</p>
-<pre><code>##               Estimate Std. Error    z value   Pr(&gt;|z|)
-## (Intercept) 1.2000e+00    0.12889 9.3106e+00 1.2709e-20
-## x1          1.3000e+00    0.21960 5.9200e+00 3.2198e-09
-## x2          1.2248e-16    0.19016 6.4409e-16 1.0000e+00</code></pre>
+<pre><code>##                 Estimate Std. Error      z value     Pr(&gt;|z|)
+## (Intercept) 1.200000e+00  0.1288851 9.310615e+00 1.270940e-20
+## x1          1.300000e+00  0.2195953 5.919980e+00 3.219809e-09
+## x2          1.224817e-16  0.1901631 6.440877e-16 1.000000e+00</code></pre>
 <ul>
 <li><p>The model tells us that <span
 class="math inline">\(\beta_1\)</span> (the effect size of ‘x1’) is 1.3
-and that it is significantly different from 0 (p-value = 3.21981^{-9}).
-This is actually interpreted as an increase in 1 unit of ‘x1’ results in
-‘y’ (rate) by a factor of exp(1.3) = 3.6693.</p></li>
+and that it is significantly different from 0 (p-value =
+3.2198086^{-9}). This is actually interpreted as an increase in 1 unit
+of ‘x1’ results in ‘y’ (rate) by a factor of exp(1.3) =
+3.6692967.</p></li>
 <li><p>The model also tells us that <span
 class="math inline">\(\beta_2\)</span> (the effect size of ‘x2’) is
-1.22482^{-16} and that it is significantly different from 0 (p-value =
+1.2248169^{-16} and that it is significantly different from 0 (p-value =
 1). This is means that an increase in 1 unit of ‘x2’ results in ‘y’
-(rate) by a factor of exp(1.22482^{-16}) = 1.</p></li>
+(rate) by a factor of exp(1.2248169^{-16}) = 1.</p></li>
 </ul>
 </div>
 <p> </p>
@@ -2898,19 +2900,19 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## lm(formula = y ~ x1, data = xy_data_pops)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -11.755  -5.119   0.186   4.602  12.409 
+##      Min       1Q   Median       3Q      Max 
+## -11.7547  -5.1191   0.1855   4.6016  12.4090 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)    8.852      0.325   27.21   &lt;2e-16 ***
-## x1             0.633      0.329    1.92    0.055 .  
+## (Intercept)   8.8520     0.3253  27.214   &lt;2e-16 ***
+## x1            0.6332     0.3292   1.924   0.0554 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 5.63 on 298 degrees of freedom
-## Multiple R-squared:  0.0123, Adjusted R-squared:  0.00895 
-## F-statistic:  3.7 on 1 and 298 DF,  p-value: 0.0554</code></pre>
+## Residual standard error: 5.628 on 298 degrees of freedom
+## Multiple R-squared:  0.01226,    Adjusted R-squared:  0.008949 
+## F-statistic:   3.7 on 1 and 298 DF,  p-value: 0.05537</code></pre>
 <p> </p>
 <p>Despite having simulated a non-zero <span
 class="math inline">\(\beta_1\)</span> we have no significant
@@ -2950,19 +2952,19 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## REML criterion at convergence: 1296.4
 ## 
 ## Scaled residuals: 
-##    Min     1Q Median     3Q    Max 
-## -3.524 -0.657 -0.032  0.612  3.245 
+##     Min      1Q  Median      3Q     Max 
+## -3.5236 -0.6575 -0.0316  0.6124  3.2454 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  pops     (Intercept) 30.07    5.48    
-##  Residual              3.76    1.94    
+##  pops     (Intercept) 30.073   5.484   
+##  Residual              3.762   1.940   
 ## Number of obs: 300, groups:  pops, 9
 ## 
 ## Fixed effects:
-##             Estimate Std. Error      df t value Pr(&gt;|t|)    
-## (Intercept)    8.788      1.831   8.003     4.8   0.0014 ** 
-## x1             1.317      0.115 290.068    11.4   &lt;2e-16 ***
+##             Estimate Std. Error       df t value Pr(&gt;|t|)    
+## (Intercept)   8.7881     1.8315   8.0031   4.798  0.00136 ** 
+## x1            1.3166     0.1151 290.0679  11.440  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -2971,8 +2973,8 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## x1 -0.003</code></pre>
 <p> </p>
 <p>The model correctly detected the simulated pattern and the estimate
-for <span class="math inline">\(\beta_1\)</span> (1.31665) is very close
-to the simulated value.</p>
+for <span class="math inline">\(\beta_1\)</span> (1.3166493) is very
+close to the simulated value.</p>
 <hr />
 </div>
 <div id="references" class="section level2">
@@ -3015,53 +3017,41 @@ data in R</a></p></li>
 ## [11] LC_MEASUREMENT=es_CR.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods  
-## [7] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] sjPlot_2.8.14      lmerTest_3.1-3     lme4_1.1-33       
-##  [4] Matrix_1.5-1       viridis_0.6.3      viridisLite_0.4.2 
-##  [7] dplyr_1.1.0        tidyr_1.3.0        readxl_1.4.1      
-## [10] kableExtra_1.3.4   knitr_1.42         ggplot2_3.4.2     
-## [13] RColorBrewer_1.1-3
+## [1] sjPlot_2.8.14     lmerTest_3.1-3    lme4_1.1-33       Matrix_1.5-1     
+## [5] viridis_0.6.3     viridisLite_0.4.2 ggplot2_3.4.2     knitr_1.42       
+## [9] kableExtra_1.3.4 
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] minqa_1.2.5         colorspace_2.1-0    ellipsis_0.3.2     
-##   [4] rsconnect_0.8.29    sjlabelled_1.2.0    estimability_1.4.1 
-##   [7] fs_1.6.2            rstudioapi_0.14     farver_2.1.1       
-##  [10] remotes_2.4.2       fansi_1.0.4         mvtnorm_1.1-3      
-##  [13] xml2_1.3.4          splines_4.2.2       cachem_1.0.8       
-##  [16] sjmisc_2.8.9        pkgload_1.3.2       jsonlite_1.8.4     
-##  [19] nloptr_2.0.3        ggeffects_1.2.2     broom_1.0.4        
-##  [22] shiny_1.7.3         compiler_4.2.2      httr_1.4.6         
-##  [25] sjstats_0.18.2      emmeans_1.8.6       backports_1.4.1    
-##  [28] assertthat_0.2.1    fastmap_1.1.1       cli_3.6.1          
-##  [31] later_1.3.1         formatR_1.12        htmltools_0.5.5    
-##  [34] prettyunits_1.1.1   tools_4.2.2         coda_0.19-4        
-##  [37] gtable_0.3.3        glue_1.6.2          Rcpp_1.0.10        
-##  [40] carData_3.0-5       cellranger_1.1.0    jquerylib_0.1.4    
-##  [43] vctrs_0.6.2         svglite_2.1.0       nlme_3.1-162       
-##  [46] insight_0.19.2      xfun_0.39           stringr_1.5.0      
-##  [49] ps_1.7.5            rvest_1.0.3         mime_0.12          
-##  [52] miniUI_0.1.1.1      lifecycle_1.0.3     devtools_2.4.5     
-##  [55] klippy_0.0.0.9500   MASS_7.3-58.2       scales_1.2.1       
-##  [58] ragg_1.2.4          promises_1.2.0.1    yaml_2.3.7         
-##  [61] memoise_2.0.1       gridExtra_2.3       sass_0.4.6         
-##  [64] stringi_1.7.12      highr_0.10          bayestestR_0.13.1  
-##  [67] boot_1.3-28         pkgbuild_1.3.1      rlang_1.1.1        
-##  [70] pkgconfig_2.0.3     systemfonts_1.0.4   evaluate_0.21      
-##  [73] lattice_0.20-45     purrr_1.0.1         htmlwidgets_1.5.4  
-##  [76] labeling_0.4.2      tidyselect_1.2.0    processx_3.8.1     
-##  [79] magrittr_2.0.3      R6_2.5.1            generics_0.1.3     
-##  [82] profvis_0.3.7       pillar_1.9.0        withr_2.5.0        
-##  [85] mgcv_1.8-41         abind_1.4-5         tibble_3.2.1       
-##  [88] performance_0.10.3  modelr_0.1.11       crayon_1.5.2       
-##  [91] car_3.1-2           utf8_1.2.3          rmarkdown_2.21     
-##  [94] urlchecker_1.0.1    usethis_2.1.6       grid_4.2.2         
-##  [97] isoband_0.2.7       callr_3.7.3         digest_0.6.31      
-## [100] webshot_0.5.4       xtable_1.8-4        httpuv_1.6.6       
-## [103] numDeriv_2016.8-1.1 textshaping_0.3.6   munsell_0.5.0      
-## [106] bslib_0.4.2         sessioninfo_1.2.2</code></pre>
+##  [1] httr_1.4.6          sass_0.4.6          tidyr_1.3.0        
+##  [4] jsonlite_1.8.4      splines_4.2.2       carData_3.0-5      
+##  [7] modelr_0.1.11       bslib_0.4.2         assertthat_0.2.1   
+## [10] highr_0.10          yaml_2.3.7          bayestestR_0.13.1  
+## [13] numDeriv_2016.8-1.1 pillar_1.9.0        backports_1.4.1    
+## [16] lattice_0.20-45     glue_1.6.2          digest_0.6.31      
+## [19] rvest_1.0.3         minqa_1.2.5         colorspace_2.1-0   
+## [22] htmltools_0.5.5     pkgconfig_2.0.3     broom_1.0.4        
+## [25] purrr_1.0.1         xtable_1.8-4        mvtnorm_1.1-3      
+## [28] scales_1.2.1        webshot_0.5.4       svglite_2.1.0      
+## [31] emmeans_1.8.6       tibble_3.2.1        mgcv_1.8-41        
+## [34] car_3.1-2           farver_2.1.1        generics_0.1.3     
+## [37] sjlabelled_1.2.0    cachem_1.0.8        withr_2.5.0        
+## [40] klippy_0.0.0.9500   cli_3.6.1           magrittr_2.0.3     
+## [43] estimability_1.4.1  evaluate_0.21       fansi_1.0.4        
+## [46] nlme_3.1-162        MASS_7.3-58.2       xml2_1.3.4         
+## [49] tools_4.2.2         formatR_1.12        lifecycle_1.0.3    
+## [52] stringr_1.5.0       munsell_0.5.0       ggeffects_1.2.2    
+## [55] compiler_4.2.2      jquerylib_0.1.4     systemfonts_1.0.4  
+## [58] rlang_1.1.1         grid_4.2.2          nloptr_2.0.3       
+## [61] rstudioapi_0.14     labeling_0.4.2      rmarkdown_2.21     
+## [64] boot_1.3-28         gtable_0.3.3        abind_1.4-5        
+## [67] sjstats_0.18.2      sjmisc_2.8.9        R6_2.5.1           
+## [70] gridExtra_2.3       dplyr_1.1.0         performance_0.10.3 
+## [73] fastmap_1.1.1       utf8_1.2.3          insight_0.19.2     
+## [76] stringi_1.7.12      Rcpp_1.0.10         vctrs_0.6.2        
+## [79] tidyselect_1.2.0    xfun_0.39           coda_0.19-4</code></pre>
 </div>
 </div>
 

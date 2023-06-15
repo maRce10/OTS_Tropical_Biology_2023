@@ -141,26 +141,39 @@ R has no 0-dimensional elements (scalars). Individual numbers or strings are act
 
 ## Atomic vectors
 
-Types of atomic vectors:
+These are the building blocks of any other object types. There are 4 basic types of atomic vectors:
 
-
-- Logical [(boolean)](https://en.wikipedia.org/wiki/Boolean)
-- Integer
 - Numeric (double)
 - Character
+- Factor
+- Logical [(boolean)](https://en.wikipedia.org/wiki/Boolean)
 
+### Numeric vectors
 
 Vectors are built using `c()`:
 
 ```{r,collapse=TRUE}
 
 x <- 1
+
 x1 <- c(1)
 
 
 ```
 
 &nbsp;
+
+### Character vectors
+
+Character vectors can be built in the same way:
+
+```{r}
+
+v <- "a"
+
+v <- c("a", "b")
+  
+```
 
 
 Vectors can only contain entries of the same type. Different types will be coerced to the most flexible type:
@@ -186,6 +199,45 @@ class(x)
 ```
 &nbsp;
 
+### Factors
+
+A factor is a vector that can contain only predefined values, and is used to store categorical data. 
+
+Factors are built on character vectors using two attributes:
+
+  -  class “factor”: makes them behave differently from regular integer vectors
+  - levels: defines the set of allowed values
+
+```{r}
+
+x <- factor(c("a", "b", "b", "a"))
+x
+
+levels(x)
+
+
+str(x)
+
+```
+
+&nbsp;
+
+### Logical vectors
+
+These are binary vectors than containing `TRUE` and/or `FALSE` elements: 
+
+```{r}
+
+lv <- c(TRUE, FALSE)
+
+```
+
+
+Notice that `TRUE` and `FALSE` are objects that already exist in the R environment so they don't need to be quoted.
+
+&nbsp;
+
+### Missing values
 
 Missing values are specified with NA, which is a logical vector of length 1. NA will always be coerced to the correct type if used inside `c()`:
 
@@ -229,41 +281,6 @@ str(l)
 
 ```
 &nbsp;
-
-### Factors
-
-Attributes are used to define factors. A factor is a vector that can contain only predefined values, and is used to store categorical data. 
-
-Factors are built on top of integer vectors using two attributes:
-
-  -  class “factor”: makes them behave differently from regular integer vectors
-  - levels: defines the set of allowed values
-
-```{r}
-
-x <- factor(c("a", "b", "b", "a"))
-x
-
-levels(x)
-
-
-str(x)
-
-```
-&nbsp;
-
-
-Factors look like character vectors but they are actually integers:
-
-```{r}
-
-x <- factor(c("a", "b", "b", "a"))
-
-c(x)
-```
-
-&nbsp;
-
 
 
 ## Matrices  
@@ -744,6 +761,8 @@ v[v < 3]
 
 &nbsp;
 
+Use square braindexing
+
 1. Subset the observations in `iris` for which sepal length is lower than 5 and save it as a new data frame
 
 
@@ -756,7 +775,9 @@ range(iris$Petal.Width)
 
 1. Subset the observations in `iris` for which petal width is equal or higher than 2 and save it as a new data frame
 
-1. Subset the observations in `iris` belonging to the species virginica
+1. Subset the observations in `iris` belonging to the species "virginica"
+
+*(Yo must not use the function `subset()`)
 
 </div>
 
@@ -810,33 +831,18 @@ Spacing:
 
   - GOOD: 
           a <- rnorm(n = 10, sd = 10, mean = 1)
-          tab.prior <- table(df[df$days.from.opt < 0, "campaign.id"])
-          total <- sum(x[, 1])
-          total <- sum(x[1, ])
-          if (debug)
-          mean(1:10)
-          
+  
   - BAD: 
          a<-rnorm(n=10,sd=10,mean=1)
-         tab.prior <- table(df[df$days.from.opt<0, "campaign.id"])  # Needs spaces around '<'
-         tab.prior <- table(df[df$days.from.opt < 0,"campaign.id"])  # Needs a space after the comma
-         tab.prior<- table(df[df$days.from.opt < 0, "campaign.id"])  # Needs a space before <-
-         tab.prior<-table(df[df$days.from.opt < 0, "campaign.id"])  # Needs spaces around <-
-         total <- sum(x[,1])  # Needs a space after the comma
-         total <- sum(x[ ,1])  # Needs a space after the comma, not before  
-         if(debug) # Needs a space before parenthesis
-         mean (1:10) # ) # Extra space before parenthesis
-
+        
 ```
 &nbsp; 
 
-Curly braces:
+Curly brackets:
 
   - An opening curly brace should never go on its own line
   - Closing curly brace should always go on its own line
-  - You may omit curly braces when a block consists of a single statement
-          
-          
+  - You may omit curly brackets when a block consists of a single statement
           
 ```{r eval=F}
 
@@ -854,9 +860,6 @@ Curly braces:
                     
          if (is.null(ylim)) {ylim <- c(0, 0.06)} 
 
-         if (is.null(ylim)) {
-           ylim <- c(0, 0.06)
-           } 
 ```
 &nbsp; 
 
@@ -888,16 +891,6 @@ hist(df$pct.spent,
      xlab   = "Fraction of budget spent",
      ylab   = "Frequency (count of campaignids)")
 ```
-&nbsp; 
-
-General Layout and Ordering (google style):          
-        
-  - Copyright statement comment (?)
-  - Author comment
-  - File description comment, including purpose of program, inputs, and outputs
-  - source() and library() statements
-  - Function definitions
-  - Executed statements, if applicable (e.g., print, plot)
 
 ---
 
@@ -964,21 +957,7 @@ vgn <- browseVignettes()
 vignette()
 ```
 
-They should also be listed in the package CRAN page.
-
-&nbsp;
-
-## Demonstrations  
-
-Packages may also include extended code demonstrations ('demos'). To list demos in a package run `demo("package name")`:
-
-```{r, eval=F}
-demo(package="stats")
-
-# call demo directly
-demo("nlm")
-
-```
+They should also be listed in the package's CRAN page.
 
 &nbsp;
 
