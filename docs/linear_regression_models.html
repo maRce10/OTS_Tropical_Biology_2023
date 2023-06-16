@@ -1988,7 +1988,9 @@ a
 <div class="sourceCode" id="cb101"><pre
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a><span class="co"># plot</span></span>
 <span id="cb101-2"><a href="#cb101-2"></a><span class="fu">ggplot</span>(xy_data_cat, <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb101-3"><a href="#cb101-3"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<span id="cb101-3"><a href="#cb101-3"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">aggregate</span>(y <span class="sc">~</span></span>
+<span id="cb101-4"><a href="#cb101-4"></a>    x1, xy_data_cat, mean), <span class="at">col =</span> <span class="st">&quot;#31688EFF&quot;</span>,</span>
+<span id="cb101-5"><a href="#cb101-5"></a>    <span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="linear_regression_models_files/figure-html/unnamed-chunk-72-1.png" width="672" />
  </p>
 <p>… and get the estimates of the model:</p>
@@ -2060,7 +2062,9 @@ baseline:</p></li>
 class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a><span class="co"># plot</span></span>
 <span id="cb107-2"><a href="#cb107-2"></a><span class="fu">ggplot</span>(xy_data_cat, <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> y)) <span class="sc">+</span></span>
 <span id="cb107-3"><a href="#cb107-3"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> xy_mod_cat<span class="sc">$</span>coefficients[<span class="dv">1</span>],</span>
-<span id="cb107-4"><a href="#cb107-4"></a>    <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<span id="cb107-4"><a href="#cb107-4"></a>    <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">aggregate</span>(y <span class="sc">~</span></span>
+<span id="cb107-5"><a href="#cb107-5"></a>    x1, xy_data_cat, mean), <span class="at">col =</span> <span class="st">&quot;#31688EFF&quot;</span>,</span>
+<span id="cb107-6"><a href="#cb107-6"></a>    <span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="linear_regression_models_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <ul>
 <li>Hence the intercept is the same as the mean of y for the category

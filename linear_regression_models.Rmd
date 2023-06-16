@@ -1349,7 +1349,7 @@ We can explore the pattern in the data using a boxplot:
 
 # plot
 ggplot(xy_data_cat, aes(x = x1, y = y)) + 
-  geom_boxplot()
+  geom_boxplot() + geom_point(data = aggregate(y ~ x1, xy_data_cat, mean), col = "#31688EFF", size = 2)
 
 ```
 &nbsp;
@@ -1417,7 +1417,7 @@ summ_xy_mod_cat$coefficients
 # plot
 ggplot(xy_data_cat, aes(x = x1, y = y)) + 
   geom_boxplot() +
-geom_hline(yintercept = xy_mod_cat$coefficients[1], col = "blue")
+geom_hline(yintercept = xy_mod_cat$coefficients[1], col = "blue") + geom_point(data = aggregate(y ~ x1, xy_data_cat, mean), col = "#31688EFF", size = 2)
 
 ```
 
@@ -1426,7 +1426,9 @@ geom_hline(yintercept = xy_mod_cat$coefficients[1], col = "blue")
 ggplot(xy_data_cat, aes(x = x1, y = y)) + 
   geom_boxplot() + 
   geom_hline(yintercept = xy_mod_cat$coefficients[1], col = "blue") +
-    theme(panel.background = element_rect(fill = "#dff0d8"), plot.background = element_rect(fill = "#dff0d8", colour=NA))
+    theme(panel.background = element_rect(fill = "#dff0d8"), plot.background = element_rect(fill = "#dff0d8", colour=NA)) +
+  geom_point(data = aggregate(y ~ x1, xy_data_cat, mean), col = "#31688EFF", size = 2)
+
 
 ```
 
@@ -1471,7 +1473,7 @@ knitr::include_graphics("./images/daggers_lbh.png")
 
 &nbsp;
 
-- Unbalanced data when having categories (i.e. some categories have way more observations than others) can be problematic for statistical inference. Modify the code [above](#cb99-1) to simulate a highly unbalanced data set and check the precision of the model.
+- Unbalanced data when having categories (i.e. some categories have way more observations than others) can be problematic for statistical inference. Modify the code [above](#cb100-1) to simulate a highly unbalanced data set and check the precision of the model.
 
 </div>
 
