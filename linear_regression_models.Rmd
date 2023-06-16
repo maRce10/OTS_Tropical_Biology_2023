@@ -1809,7 +1809,7 @@ summary(xy_mod)
 
 - Build a multiple regression model for this data (y ~ x1 + x2). You can use the same code as in the section [Adding more than 1 predictor: multiple regression](#adding-more-than-1-predictor-multiple-regression).
 
-- How is the inference affected by the presence of collinear predictors? Make the diagnostic plots for this model (`plot(model_name)`).
+- How is the inference affected by the presence of collinear predictors? Make the diagnostic plots for this model (`plot_model(model_name, type = "diag")`).
 
 - Simulate a data set with three predictors in which only two of them are highly collinear. Fit a multiple regression model (y ~ x1 + x2 + x3) for that data and look at how collinearity affects the estimate for the non-collinear predictor.
 
