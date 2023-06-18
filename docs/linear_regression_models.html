@@ -11,7 +11,7 @@
 
 <meta name="author" content="Marcelo Araya-Salas, PhD" />
 
-<meta name="date" content="2023-06-16" />
+<meta name="date" content="2023-06-17" />
 
 <title>Linear regression models</title>
 
@@ -469,7 +469,7 @@ models</b></font></h1>
 <br> Organization for Tropical Studies</font></h3>
 <h4 class="author"><font size="3"><a href="https://marce10.github.io/">Marcelo
 Araya-Salas, PhD</a></font></h4>
-<h4 class="date">2023-06-16</h4>
+<h4 class="date">2023-06-17</h4>
 
 </div>
 
@@ -2555,12 +2555,15 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <span id="cb128-12"><a href="#cb128-12"></a><span class="co"># generate variables</span></span>
 <span id="cb128-13"><a href="#cb128-13"></a>y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> n, <span class="at">lambda =</span> <span class="fl">6.5</span>)  <span class="co"># lambda = average rate of success</span></span>
 <span id="cb128-14"><a href="#cb128-14"></a>x2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, , <span class="fu">length</span>(y))</span>
-<span id="cb128-15"><a href="#cb128-15"></a>x1 <span class="ot">&lt;-</span> (<span class="fu">log</span>(y) <span class="sc">-</span> b0 <span class="sc">-</span> b2 <span class="sc">*</span> x2)<span class="sc">/</span>b1</span>
+<span id="cb128-15"><a href="#cb128-15"></a>error <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">0.1</span>)</span>
 <span id="cb128-16"><a href="#cb128-16"></a></span>
-<span id="cb128-17"><a href="#cb128-17"></a><span class="co"># create data frame</span></span>
-<span id="cb128-18"><a href="#cb128-18"></a>xy_data_pois <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, y)</span>
+<span id="cb128-17"><a href="#cb128-17"></a>x1 <span class="ot">&lt;-</span> (<span class="fu">log</span>(y) <span class="sc">-</span> b0 <span class="sc">-</span> b2 <span class="sc">*</span> x2)<span class="sc">/</span>b1 <span class="sc">+</span> error</span>
+<span id="cb128-18"><a href="#cb128-18"></a></span>
 <span id="cb128-19"><a href="#cb128-19"></a></span>
-<span id="cb128-20"><a href="#cb128-20"></a><span class="fu">head</span>(xy_data_pois)</span></code></pre></div>
+<span id="cb128-20"><a href="#cb128-20"></a><span class="co"># create data frame</span></span>
+<span id="cb128-21"><a href="#cb128-21"></a>xy_data_pois <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, y)</span>
+<span id="cb128-22"><a href="#cb128-22"></a></span>
+<span id="cb128-23"><a href="#cb128-23"></a><span class="fu">head</span>(xy_data_pois)</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2578,7 +2581,7 @@ y
 <tbody>
 <tr>
 <td style="text-align:center;">
-0.1433
+-0.0015
 </td>
 <td style="text-align:center;">
 -0.5000
@@ -2589,7 +2592,7 @@ y
 </tr>
 <tr>
 <td style="text-align:center;">
-0.5738
+0.6313
 </td>
 <td style="text-align:center;">
 -0.4796
@@ -2600,7 +2603,7 @@ y
 </tr>
 <tr>
 <td style="text-align:center;">
-0.5738
+0.4714
 </td>
 <td style="text-align:center;">
 -0.4592
@@ -2611,7 +2614,7 @@ y
 </tr>
 <tr>
 <td style="text-align:center;">
-0.5738
+0.5723
 </td>
 <td style="text-align:center;">
 -0.4388
@@ -2622,7 +2625,7 @@ y
 </tr>
 <tr>
 <td style="text-align:center;">
-0.7671
+0.6735
 </td>
 <td style="text-align:center;">
 -0.4184
@@ -2633,7 +2636,7 @@ y
 </tr>
 <tr>
 <td style="text-align:center;">
-0.5738
+0.6840
 </td>
 <td style="text-align:center;">
 -0.3980
@@ -2675,23 +2678,23 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 ## 
 ## Deviance Residuals: 
 ##      Min        1Q    Median        3Q       Max  
-## 0.00e+00  0.00e+00  0.00e+00  0.00e+00  2.98e-08  
+## -0.70959  -0.18392   0.03249   0.15597   0.65482  
 ## 
 ## Coefficients:
-##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) 1.200e+00  1.289e-01   9.311  &lt; 2e-16 ***
-## x1          1.300e+00  2.196e-01   5.920 3.22e-09 ***
-## x2          1.225e-16  1.902e-01   0.000        1    
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   1.3026     0.1180  11.039  &lt; 2e-16 ***
+## x1            1.1418     0.2055   5.555 2.78e-08 ***
+## x2           -0.1534     0.1914  -0.802    0.423    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance:  3.9471e+01  on 49  degrees of freedom
-## Residual deviance: -5.9952e-15  on 47  degrees of freedom
-## AIC: 186.89
+##     Null deviance: 39.4709  on 49  degrees of freedom
+## Residual deviance:  4.8561  on 47  degrees of freedom
+## AIC: 191.75
 ## 
-## Number of Fisher Scoring iterations: 3</code></pre>
+## Number of Fisher Scoring iterations: 4</code></pre>
 <p> </p>
 <p> </p>
 <div class="alert alert-success">
@@ -2699,22 +2702,22 @@ class="sourceCode numberSource r numberLines lineAnchors"><code class="sourceCod
 <p><font size="5"><b>Model interpretation</b></font></p>
 <p> </p>
 <p>Coefficients table:</p>
-<pre><code>##                 Estimate Std. Error      z value     Pr(&gt;|z|)
-## (Intercept) 1.200000e+00  0.1288851 9.310615e+00 1.270940e-20
-## x1          1.300000e+00  0.2195953 5.919980e+00 3.219809e-09
-## x2          1.224817e-16  0.1901631 6.440877e-16 1.000000e+00</code></pre>
+<pre><code>##               Estimate Std. Error    z value     Pr(&gt;|z|)
+## (Intercept)  1.3026399  0.1180046 11.0388938 2.480684e-28
+## x1           1.1417700  0.2055389  5.5550066 2.776012e-08
+## x2          -0.1534034  0.1913572 -0.8016596 4.227499e-01</code></pre>
 <ul>
 <li><p>The model tells us that <span
-class="math inline">\(\beta_1\)</span> (the effect size of ‘x1’) is 1.3
-and that it is significantly different from 0 (p-value =
-3.2198086^{-9}). This is actually interpreted as an increase in 1 unit
-of ‘x1’ results in ‘y’ (rate) by a factor of exp(1.3) =
-3.6692967.</p></li>
+class="math inline">\(\beta_1\)</span> (the effect size of ‘x1’) is
+1.14177 and that it is significantly different from 0 (p-value =
+2.7760122^{-8}). This is actually interpreted as an increase in 1 unit
+of ‘x1’ results in ‘y’ (rate) by a factor of exp(1.14177) =
+3.1323075.</p></li>
 <li><p>The model also tells us that <span
 class="math inline">\(\beta_2\)</span> (the effect size of ‘x2’) is
-1.2248169^{-16} and that it is significantly different from 0 (p-value =
-1). This is means that an increase in 1 unit of ‘x2’ results in ‘y’
-(rate) by a factor of exp(1.2248169^{-16}) = 1.</p></li>
+-0.1534034 and that it is significantly different from 0 (p-value =
+0.4227499). This is means that an increase in 1 unit of ‘x2’ results in
+‘y’ (rate) by a factor of exp(-0.1534034) = 0.8577836.</p></li>
 </ul>
 </div>
 <p> </p>

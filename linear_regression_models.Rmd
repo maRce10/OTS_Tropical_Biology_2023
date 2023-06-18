@@ -1844,7 +1844,10 @@ b2 <- 0
 #generate variables
 y <- rpois(n = n, lambda = 6.5) # lambda = average rate of success
 x2 <- seq(-0.5, 0.5, , length(y))
-x1 <- (log(y) - b0 - b2 * x2) / b1
+error <- rnorm(n, sd = 0.1)
+
+x1 <- (log(y) - b0 - b2 * x2) / b1 + error
+
 
 # create data frame
 xy_data_pois <- data.frame(x1, x2, y)
